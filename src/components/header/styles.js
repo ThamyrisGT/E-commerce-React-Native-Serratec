@@ -11,10 +11,10 @@ export const styles = StyleSheet.create({
     marginBottom: 30,
   },
   screen: {
-    fontFamily: theme.fonts.semibold,
-    fontSize: 22,
-    color: theme.colors.titleblack,
-    marginHorizontal: 60,
+    fontFamily: theme.fonts.bold,
+    fontSize: 25,
+    color: theme.colors.secundary,
+    marginHorizontal: 70,
   },
   text: {
     fontFamily: theme.fonts.regular,

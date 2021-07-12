@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   text: {
-    fontFamily: theme.fonts.regular,
+    fontFamily: theme.fonts.medium,
     fontSize: 22,
     textAlign: 'center',
     color: theme.colors.secundary,

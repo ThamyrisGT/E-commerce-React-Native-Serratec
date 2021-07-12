@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontSize: 22,
-    fontFamily: theme.fonts.regular,
+    fontFamily: theme.fonts.medium,
     textAlign: 'center',
-    color: theme.colors.secundary,
+    color: theme.colors.white,
   },
 });
