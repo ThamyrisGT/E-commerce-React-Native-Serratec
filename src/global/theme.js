@@ -8,20 +8,11 @@ const theme = {
   },
 
   fonts: {
-    bold: 'Rubik-Bold',
-    bolditalic: 'Rubik-BoldItalic',
-    extrabold: 'Rubik-ExtraBold',
-    extrabolditalic:'Rubik-ExtraBoldItalic',
-    semibold:'Rubik-SemiBold',
-    semibolditalic:'Rubik-SemiBoldItalic',
-    black: 'Rubik-Black',
-    blackitalic:'Rubik-BlackItalic',
-    italic:'Rubik-Italic',
-    light:'Rubik-Light',
-    lightitalic:'Rubik-LightItalic',
-    medium:'Rubik-Medium',
-    mediumitalic:'Rubik-MediumItalic',
-    regular:'Rubik-Regular'
+    bold: 'Quicksand-Bold',
+    semibold:'Quicksand-SemiBold',
+    light:'Quicksand-Light',
+    medium:'Quicksand-Medium',
+    regular:'Quicksand-Regular'
   },
 };
 

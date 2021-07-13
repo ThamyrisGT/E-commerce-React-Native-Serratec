@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 70,
   },
   text: {
-    fontFamily: theme.fonts.regular,
+    fontFamily: theme.fonts.medium,
     fontSize: 22,
     color: theme.colors.primary,
   },
