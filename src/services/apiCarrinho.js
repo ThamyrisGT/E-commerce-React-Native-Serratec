@@ -9,7 +9,7 @@ function obterPorNumero(numero) {
 }
 
 const obterTodos = async () => {
-        //Criação da Promise que irá retornar todos os pedidos.
+    //Criação da Promise que irá retornar todos os pedidos.
     return new Promise((resolve, reject) => {
         return Api.get('/pedido')
             .then(response => resolve(response))
@@ -26,8 +26,26 @@ function obterProdutos(numeroDoPedido) {
     });
 }
 
+function getDetalhesPedido() {
+    return new Promise((resolve, reject) => {
+        return Api.get(`pedido/detalhes/`)
+            .then(response => resolve(response))
+            .catch(error => reject(error))
+    })
+}
+
+function atualizaDetalhePedido(id, detalhePedido) {
+    return new Promise((resolve, reject) => {
+        return Api.put(`pedido/detalhes/${id}`, detalhePedido)
+            .then(response => resolve(response))
+            .catch(error => reject(error))
+    })
+}
+
 export default {
-    obterPorNumero,
     obterTodos,
-    obterProdutos
+    obterProdutos,
+    obterPorNumero,
+    getDetalhesPedido,
+    atualizaDetalhePedido
 }
