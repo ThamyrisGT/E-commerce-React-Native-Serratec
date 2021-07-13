@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL:'https://serratec-ecomerce.herokuapp.com'
+    baseURL: 'https://serratec-ecomerce.herokuapp.com'
 });
 
 
