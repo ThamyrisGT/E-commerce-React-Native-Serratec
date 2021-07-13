@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   text:{
     marginTop:20,
     fontFamily: theme.fonts.medium,
-    fontSize: 24,
+    fontSize: 23,
     color: theme.colors.secundary,
     textDecorationLine: 'underline',
     alignSelf:'center'
