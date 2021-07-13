@@ -7,7 +7,6 @@ import Splash from '../src/screens/Splash';
 import Login from '../src/screens/Login';
 import Register from '../src/screens/Register';
 
-
 const Stack = createStackNavigator();
 
 const StackNavigator = () => {
