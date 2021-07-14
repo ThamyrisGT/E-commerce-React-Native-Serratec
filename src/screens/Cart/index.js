@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Button} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {styles} from './styles';
-// import Button from '../../components/Button';
+import Button from '../../components/Button';
 import apiCarrinho from '../../services/apiCarrinho';
 import storage from '../../repository/storage';
 
@@ -21,9 +21,14 @@ const Cart = ({navigation}) => {
     if (pedido) {
       const resposta = await apiCarrinho.getDetalhesPedido();
       let tempResposta = resposta.data;
+      console.log(resposta.data);
       respostaFiltrada = tempResposta.filter(
         produto => produto.idPedido == pedido,
       );
+      respostaFiltrada.map(item => {
+        console.log(item);
+      });
+      console.log('Resposta aqui: ' + respostaFiltrada);
       respostaFiltrada = respostaFiltrada.sort((a, b) => {
         return a.id - b.id;
       });
