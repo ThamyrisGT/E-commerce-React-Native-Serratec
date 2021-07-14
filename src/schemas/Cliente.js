@@ -2,8 +2,8 @@ export default Cliente = {
     name: 'Cliente',
     primaryKey: 'id',
     properties: {
-        id: 'long',
-        idPedido: 'long',
+        id: 'int',
+        idPedido: 'int',
         tokenAcesso: 'string'
     }
 }

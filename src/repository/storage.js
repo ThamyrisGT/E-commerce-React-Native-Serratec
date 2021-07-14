@@ -1,9 +1,9 @@
 import getCliente1 from '../services/realm';
 
-const getCliente = async () => {
+const getCliente = async (id) => {
     const clientes = await getCliente1();
-    const realmCliente = clientes.objects('Post');
-    const cliente = realmCliente.filtered('id = 2')
+    const realmCliente = clientes.objects('Cliente');
+    const cliente = realmCliente.filtered(`id = ${id}`)
     return cliente;
 }
 
