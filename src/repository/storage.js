@@ -1,10 +1,10 @@
 import getCliente1 from '../services/realm';
 import api from '../services/api';
 
-const getCliente = async () => {
+const getCliente = async (id) => {
     const clientes = await getCliente1();
-    const realmCliente = clientes.objects('Post');
-    const cliente = realmCliente.filtered('id = 2')
+    const realmCliente = clientes.objects('Cliente');
+    const cliente = realmCliente.filtered(`id = ${id}`)
     return cliente;
 };
 
@@ -16,7 +16,7 @@ const setCliente = async (cliente) => {
         token: cliente.token
     });
 };
-
+ 
 const getProducts =async()=>{
     console.log('cheguei aqui')
     try {

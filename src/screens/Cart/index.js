@@ -1,14 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Button} from 'react-native';
-import {styles} from './styles';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Button } from 'react-native';
+import { styles } from './styles';
 // import Button from '../../components/Button';
 import apiCarrinho from '../../services/apiCarrinho';
 import storage from '../../repository/storage';
 
-const Cart = async ({navigation}) => {
+const Cart = ({ navigation }) => {
   const [produtos, setProdutos] = useState([]);
 
-  const cliente = await storage.getCliente();
+  const cliente = {
+    id: 3,
+    idPedido: 81,
+    tokenAcesso:
+      'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjI2MzUwNn0.d4zOJwkaAKXEyR-88F9WH9tsYEeEAT7nUzvGfRvL6cZiUFDK-Fl8walv6gqfxhGG3t4snkekvsNbnPRBG1xZpA',
+  };
 
   const pedido = cliente.idPedido;
 
@@ -16,9 +21,14 @@ const Cart = async ({navigation}) => {
     if (pedido) {
       const resposta = await apiCarrinho.getDetalhesPedido();
       let tempResposta = resposta.data;
+      console.log(resposta.data);
       respostaFiltrada = tempResposta.filter(
         produto => produto.idPedido == pedido,
       );
+      respostaFiltrada.map(item => {
+        console.log(item);
+      });
+      console.log('Resposta aqui: ' + respostaFiltrada);
       respostaFiltrada = respostaFiltrada.sort((a, b) => {
         return a.id - b.id;
       });
@@ -31,6 +41,7 @@ const Cart = async ({navigation}) => {
       .atualizaDetalhePedido(id, detalhePedido)
       .then(resposta => {
         obterProdutosCarrinho();
+        console.log(resposta);
       })
       .catch(erro => {
         console.log(erro);
@@ -38,29 +49,35 @@ const Cart = async ({navigation}) => {
   };
 
   useEffect(() => {
-    let token = cliente.token;
+    let token = cliente.tokenAcesso;
     if (!token) {
       navigation.navigate('Login');
     }
+    console.log('dentro effect');
     obterProdutosCarrinho();
   }, []);
 
   if (!pedido) {
-    <View>
-      <Text> Carrinho </Text>
-      <Text>Sem Produtos no Carrinho</Text>
-    </View>;
+    return (
+      <View>
+        <Text> Carrinho </Text>
+        <Text>Sem Produtos no Carrinho</Text>
+      </View>
+    );
   } else {
     return (
       <View style={styles.container}>
         <Text> Carrinho </Text>
-        {produtos.map((produto, index) => {
+        <Text>Carrinho com produtos</Text>
+        {produtos.map((produto, index) => (
           <View key={index}>
             <Text>Nome do Produto: {produto.idProduto}</Text>
             <Text>Nome do Detalhe: {produto.id}</Text>
             <Text>Valor do produtos: {produto.precoDoProduto}</Text>
             <Button
+              title="+"
               onPress={() => {
+                console.log('clicado + ');
                 let pro = [...produtos];
                 let novaQuantidade = produto;
                 novaQuantidade.quantidadeProdutos++;
@@ -72,14 +89,17 @@ const Cart = async ({navigation}) => {
                   quantidade: produto.quantidadeProdutos,
                 };
                 atualizaDetalhe(novaQuantidade.id, dto);
+                obterProdutosCarrinho();
               }}
             />
             <Text>Quantidade: {produto.quantidadeProdutos}</Text>
             <Button
+              title="-"
               onPress={() => {
+                console.log('clicado - ');
                 let pro = [...produtos];
                 let novaQuantidade = produto;
-                novaQuantidade.quantidadeProdutos++;
+                novaQuantidade.quantidadeProdutos--;
                 pro[index] = novaQuantidade;
                 setProdutos(pro);
                 let dto = {
@@ -88,19 +108,15 @@ const Cart = async ({navigation}) => {
                   quantidade: produto.quantidadeProdutos,
                 };
                 atualizaDetalhe(novaQuantidade.id, dto);
+                obterProdutosCarrinho();
               }}
             />
             <Text>
               Valor por Produto:{' '}
               {produto.precoDoProduto * produto.quantidadeProdutos}
             </Text>
-          </View>;
-        })}
-        {/* <Button
-          title="Finalizar Compra"
-          activeOpacity={0.7}
-          cadastrar={() => navigation.navigate('Payments')}
-        /> */}
+          </View>
+        ))}
       </View>
     );
   }
