@@ -5,14 +5,13 @@ import { styles } from './styles';
 import apiCarrinho from '../../services/apiCarrinho';
 import storage from '../../repository/storage';
 
-const Cart = ({ navigation }) => {
+const Cart = () => {
   const [produtos, setProdutos] = useState([]);
-
   const cliente = {
     id: 3,
     idPedido: 81,
-    tokenAcesso:
-      'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjI2MzUwNn0.d4zOJwkaAKXEyR-88F9WH9tsYEeEAT7nUzvGfRvL6cZiUFDK-Fl8walv6gqfxhGG3t4snkekvsNbnPRBG1xZpA',
+    // tokenAcesso:
+    //   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjI2MzUwNn0.d4zOJwkaAKXEyR-88F9WH9tsYEeEAT7nUzvGfRvL6cZiUFDK-Fl8walv6gqfxhGG3t4snkekvsNbnPRBG1xZpA',
   };
 
   const pedido = cliente.idPedido;
@@ -43,10 +42,6 @@ const Cart = ({ navigation }) => {
   };
 
   useEffect(() => {
-    let token = cliente.tokenAcesso;
-    if (!token) {
-      navigation.navigate('Login');
-    }
     console.log('dentro effect');
     obterProdutosCarrinho();
   }, []);

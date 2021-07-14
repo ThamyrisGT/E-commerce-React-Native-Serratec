@@ -1,8 +1,9 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {StackNavigator} from './stackNavigation';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { StackNavigator } from './stackNavigation';
 import Categories from '../src/screens/Categories';
 import Cart from '../src/screens/Cart';
+import Login from '../src/screens/Login'
 import theme from '../src/global/theme';
 import IconHome from 'react-native-vector-icons/Ionicons';
 import IconList from 'react-native-vector-icons/MaterialIcons';
@@ -13,6 +14,9 @@ const Tab = createBottomTabNavigator();
 
 
 const BottomTabNavigator = () => {
+
+
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -24,7 +28,7 @@ const BottomTabNavigator = () => {
         name="Home"
         component={StackNavigator}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <IconHome name="home" size={40} color={color} />
           ),
         }}
@@ -33,16 +37,16 @@ const BottomTabNavigator = () => {
         name="Categories"
         component={Categories}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <IconList name="list-alt" size={50} color={color} />
           ),
         }}
       />
       <Tab.Screen
         name="Cart"
-        component={Cart}
+        component={true ? Cart : Login}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <IconCart name="cart" size={50} color={color} />
           ),
         }}
