@@ -21,9 +21,14 @@ const Cart = ({ navigation }) => {
     if (pedido) {
       const resposta = await apiCarrinho.getDetalhesPedido();
       let tempResposta = resposta.data;
+      console.log(resposta.data);
       respostaFiltrada = tempResposta.filter(
         produto => produto.idPedido == pedido,
       );
+      respostaFiltrada.map(item => {
+        console.log(item);
+      });
+      console.log('Resposta aqui: ' + respostaFiltrada);
       respostaFiltrada = respostaFiltrada.sort((a, b) => {
         return a.id - b.id;
       });
