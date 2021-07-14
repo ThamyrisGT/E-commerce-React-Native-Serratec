@@ -41,6 +41,7 @@ const Cart = ({navigation}) => {
       .atualizaDetalhePedido(id, detalhePedido)
       .then(resposta => {
         obterProdutosCarrinho();
+        console.log(resposta);
       })
       .catch(erro => {
         console.log(erro);
@@ -74,7 +75,9 @@ const Cart = ({navigation}) => {
             <Text>Nome do Detalhe: {produto.id}</Text>
             <Text>Valor do produtos: {produto.precoDoProduto}</Text>
             <Button
+              title="+"
               onPress={() => {
+                console.log('clicado + ');
                 let pro = [...produtos];
                 let novaQuantidade = produto;
                 novaQuantidade.quantidadeProdutos++;
@@ -86,14 +89,17 @@ const Cart = ({navigation}) => {
                   quantidade: produto.quantidadeProdutos,
                 };
                 atualizaDetalhe(novaQuantidade.id, dto);
+                obterProdutosCarrinho();
               }}
             />
             <Text>Quantidade: {produto.quantidadeProdutos}</Text>
             <Button
+              title="-"
               onPress={() => {
+                console.log('clicado - ');
                 let pro = [...produtos];
                 let novaQuantidade = produto;
-                novaQuantidade.quantidadeProdutos++;
+                novaQuantidade.quantidadeProdutos--;
                 pro[index] = novaQuantidade;
                 setProdutos(pro);
                 let dto = {
@@ -102,6 +108,7 @@ const Cart = ({navigation}) => {
                   quantidade: produto.quantidadeProdutos,
                 };
                 atualizaDetalhe(novaQuantidade.id, dto);
+                obterProdutosCarrinho();
               }}
             />
             <Text>
@@ -110,11 +117,6 @@ const Cart = ({navigation}) => {
             </Text>
           </View>
         ))}
-        {/* <Button
-          title="Finalizar Compra"
-          activeOpacity={0.7}
-          cadastrar={() => navigation.navigate('Payments')}
-        /> */}
       </View>
     );
   }
