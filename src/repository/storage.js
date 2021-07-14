@@ -1,27 +1,82 @@
-import getCliente1 from '../services/realm';
+import realm from '../services/realm';
 import api from '../services/api';
+import Produto from '../model/Produto'
 
 const getCliente = async (id) => {
-    const clientes = await getCliente1();
+    const clientes = await realm.findCliente();
     const realmCliente = clientes.objects('Cliente');
     const cliente = realmCliente.filtered(`id = ${id}`)
     return cliente;
 };
 
+const getProdutoById = async (id) => {
+    const produtos = await realm.findCliente();
+    const realmProdutos = produtos.objects('Produto');
+    const produto = realmProdutos.filtered(`id = ${id}`)
+    return produto;
+}
+
 const setCliente = async (cliente) => {
-    const realm = await getCliente1();
-    realm.create('Cliente', {
-        id: cliente.id,
-        idPedido: cliente.pedido.id,
-        token: cliente.token
-    });
+    const realm = await realm.findCliente();
+    realm.write(() => {
+        realm.create('Cliente', {
+            id: cliente.id,
+            idPedido: cliente.pedido.id,
+            token: cliente.token
+        });
+
+    })
 };
- 
-const getProducts =async()=>{
-    console.log('cheguei aqui')
+
+const setProdutos = async (produtoTemp) => {
+    const realm = await realm.findProdutos();
+    // realm.write(() => {
+    //     realm.create('Produto', {
+    //         id: produtoTemp.id,
+    //         nome: produtoTemp.nome,
+    //         preco: produtoTemp.preco,
+    //         idCegoria: produtoTemp.idCegoria,
+    //         url: produtoTemp.url
+    //     })
+    // }
+    // )
+    realm.then(realm => {
+        realm.write(() => {
+            realm.create('Produto', {
+                id: produtoTemp.id,
+                nome: produtoTemp.nome,
+                preco: produtoTemp.preco,
+                idCegoria: produtoTemp.idCegoria,
+                url: produtoTemp.url
+            })
+        })
+    }).catch((error) => {
+        console.log('deu ruim')
+    })
+}
+
+
+/**
+ * 
+ *  const savePosts = async (post) => {
+    const realm = await getRealm();
     try {
-        const productslist = await api.get('produto', {responseType:'text'})
-        if(productslist.status!==200) throw new Error("Ocorreu uma falha")
+      realm.create('Post', {
+        id: post.id,
+        userId: post.userId,
+        title: post.title,
+        body: post.body
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+ */
+
+const getProducts = async () => {
+    try {
+        const productslist = await api.get('produto', { responseType: 'text' })
+        if (productslist.status !== 200) throw new Error("Ocorreu uma falha")
         return productslist.data
     } catch (error) {
         console.log(error)
@@ -32,5 +87,7 @@ const getProducts =async()=>{
 export {
     getCliente,
     setCliente,
-    getProducts
+    getProducts,
+    setProdutos,
+    getProdutoById
 }

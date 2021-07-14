@@ -21,14 +21,20 @@ const Cart = () => {
       const resposta = await apiCarrinho.getDetalhesPedido();
       let tempResposta = resposta.data;
       respostaFiltrada = tempResposta.filter(
-        produto => produto.idPedido == pedido,
+        produto => produto.idPedido == pedido
       );
+      // respostaFiltrada.forEach((produto)=>{
+      //   let pp = storage.getProdutoById(produto.id)
+      //   console.log(pp)
+      // })
       respostaFiltrada = respostaFiltrada.sort((a, b) => {
         return a.id - b.id;
       });
       setProdutos(respostaFiltrada);
     }
   };
+
+
 
   const atualizaDetalhe = (id, detalhePedido) => {
     apiCarrinho
