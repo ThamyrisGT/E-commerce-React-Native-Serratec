@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Button} from 'react-native';
-import {styles} from './styles';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Button } from 'react-native';
+import { styles } from './styles';
 // import Button from '../../components/Button';
 import apiCarrinho from '../../services/apiCarrinho';
 import storage from '../../repository/storage';
 
-const Cart = ({navigation}) => {
+const Cart = ({ navigation }) => {
   const [produtos, setProdutos] = useState([]);
 
   const cliente = {
@@ -64,7 +64,61 @@ const Cart = ({navigation}) => {
       <View style={styles.container}>
         <Text> Carrinho </Text>
         <Text>Carrinho com produtos</Text>
-        {produtos.map((produto, index) => (
+        <FlatList
+          keyExtractor={item => item.id}
+          data={produtos}
+          renderItem={({ item, index }) => (
+            <View>
+              <Text>Nome do Produto: {item.idProduto}</Text>
+              <Text>Nome do Detalhe: {item.id}</Text>
+              <Text>Valor do produtos: {item.precoDoProduto}</Text>
+              <Button
+                title="+"
+                onPress={() => {
+                  console.log(`index: ${index}`);
+                  let pro = [...produtos];
+                  let novaQuantidade = item;
+                  novaQuantidade.quantidadeProdutos++;
+                  pro[index] = novaQuantidade;
+                  setProdutos(pro);
+                  let dto = {
+                    idPedido: item.idPedido,
+                    idProduto: item.idProduto,
+                    quantidade: item.quantidadeProdutos,
+                  };
+                  atualizaDetalhe(novaQuantidade.id, dto);
+                  obterProdutosCarrinho();
+                }}
+              />
+              <Text>Quantidade: {item.quantidadeProdutos}</Text>
+              <Button
+                title="-"
+                onPress={() => {
+                  console.log('clicado - ');
+                  let pro = [...produtos];
+                  let novaQuantidade = item;
+                  novaQuantidade.quantidadeProdutos--;
+                  pro[index] = novaQuantidade;
+                  setProdutos(pro);
+                  let dto = {
+                    idPedido: item.idPedido,
+                    idProduto: item.idProduto,
+                    quantidade: item.quantidadeProdutos,
+                  };
+                  atualizaDetalhe(novaQuantidade.id, dto);
+                  obterProdutosCarrinho();
+                }}
+              />
+              <Text>
+                Valor por Produto:{' '}
+                {item.precoDoProduto * item.quantidadeProdutos}
+              </Text>
+            </View>
+          )
+
+          }
+        />
+        {/* {produtos.map((produto, index) => (
           <View key={index}>
             <Text>Nome do Produto: {produto.idProduto}</Text>
             <Text>Nome do Detalhe: {produto.id}</Text>
@@ -111,7 +165,7 @@ const Cart = ({navigation}) => {
               {produto.precoDoProduto * produto.quantidadeProdutos}
             </Text>
           </View>
-        ))}
+        ))} */}
       </View>
     );
   }
