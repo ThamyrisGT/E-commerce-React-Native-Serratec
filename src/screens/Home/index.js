@@ -1,16 +1,41 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, FlatList} from 'react-native';
 import {styles} from './styles';
-import Button from  '../../components/Button';
+import {getProducts} from '../../repository/storage';
+import Card from '../../components/Card';
+import HeaderMain from '../../components/headerMain';
 
-const Home = ({navigation}) => {
+
+const Home = () => {
+  const [productsList, setProductsList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const carregarProdutos = async () => {
+    if (loading) return;
+    setLoading(true);
+    const products = await getProducts();
+    setProductsList(products);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    carregarProdutos();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text> Home </Text>
-      <Button title="Login" activeOpacity={0.7} cadastrar={() => navigation.navigate('Login')}/>
-      <Button title="Cadastrar" activeOpacity={0.7} cadastrar={() => navigation.navigate('Register')}/>
-      <Button title="Detalhes" activeOpacity={0.7} cadastrar={() => navigation.navigate('ProductDetails')}/>
-    </View>
+    <>
+        <HeaderMain/>
+        <FlatList
+      style={styles.container}
+      keyExtractor={item => item.id}
+      data={productsList}
+      renderItem={({item}) => (
+           <>
+           <Card caminhoImagem={item.url} nome={item.nome} preco={item.preco} /> 
+           </>
+      )}
+    />
+    </>
   );
 };
 

@@ -10,7 +10,9 @@ import IconCart from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigator = () => {
+
+
+const BottomTabNavigator = () => { 
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -48,4 +50,6 @@ const BottomTabNavigator = () => {
     </Tab.Navigator>
   );
 };
+
+
 export default BottomTabNavigator;
