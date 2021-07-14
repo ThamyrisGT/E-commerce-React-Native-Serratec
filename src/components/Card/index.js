@@ -1,22 +1,22 @@
 import React from 'react';
-import { View,Text,Image } from 'react-native';
-import { styles } from './styles';
+import {View, Text, Image} from 'react-native';
+import {styles} from './styles';
 
-const Card = () => {
+const Card = (props) => {
+
+  let title = props.nome.replace("-",(` `))
   return (
-  <View style={styles.container}>
-      <View style={styles.containerSecundary}>
-      <Image 
-      source={require('../../assets/teste.png')}
-      style={styles.image}
-      resizeMode='contain'
-      />
-
-      </View>
-      <Text style={styles.title}>Nome Do Produto</Text>
-      <Text style={styles.price}>R$00,00</Text>
-  </View>
-  )
-}
+    <View style={styles.container}>
+        <Image 
+        source={{uri:props.caminhoImagem}} 
+        style={styles.image} 
+        />
+        <View style={styles.containerSecundary}>
+        <Text style={styles.title}> {title} </Text>
+        <Text style={styles.price}>{props.preco}</Text>
+        </View>
+    </View>
+  );
+};
 
 export default Card;
