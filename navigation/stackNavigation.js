@@ -48,14 +48,4 @@ const StackNavigator = () => {
   );
 };
 
-// const FooterNavigator = () => {
-//   return (
-//     <Stack.Navigator initialRouteName={'Cart'}>
-//       <Stack.Screen name="Categories" component={Categories} />
-//       <Stack.Screen name="Cart" component={Cart} />
-//       <Stack.Screen name="More" component={More} />
-//     </Stack.Navigator>
-//   );
-// };
-
 export {StackNavigator};
