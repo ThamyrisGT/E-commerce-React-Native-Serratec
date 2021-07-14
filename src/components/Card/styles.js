@@ -34,6 +34,8 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     color: theme.colors.primary,
     marginBottom:20,
-   
   },
+  ContainerStar:{
+    flexDirection:'row'
+  }
 });

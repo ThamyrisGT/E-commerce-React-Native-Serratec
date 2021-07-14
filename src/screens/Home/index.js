@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {styles} from './styles';
 import {getProducts} from '../../repository/storage';
-import theme from '../../global/theme';
 import Card from '../../components/Card';
+import HeaderMain from '../../components/headerMain';
 
-const Home = ({navigation}) => {
+
+const Home = () => {
   const [productsList, setProductsList] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -22,17 +23,19 @@ const Home = ({navigation}) => {
   }, []);
 
   return (
-    <FlatList
+    <>
+        <HeaderMain/>
+        <FlatList
       style={styles.container}
       keyExtractor={item => item.id}
       data={productsList}
-      //ItemSeparatorComponent
       renderItem={({item}) => (
-        
+           <>
            <Card caminhoImagem={item.url} nome={item.nome} preco={item.preco} /> 
-    
+           </>
       )}
     />
+    </>
   );
 };
 
