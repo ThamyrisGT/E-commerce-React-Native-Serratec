@@ -17,7 +17,7 @@ const ProductDetails = ({navigation, route}) => {
       <StatusBar hidden={true} translucent />
       <Header
           text={'Voltar'}
-          screen={'Cadastro'}
+          screen={'Detalhes'}
           voltar={() => navigation.navigate('Home')} />
       <View>
           <View style={styles.containerPrincipal}>
@@ -30,8 +30,8 @@ const ProductDetails = ({navigation, route}) => {
                   </View>
               </View>
               <View style={styles.viewInferior}>
-                  <View style={styles.linhaDivisoria}/>
-                  <View style={{flex:5}}>
+                  {/* <View style={styles.linhaDivisoria}/> */}
+                  <View style={styles.containerFooter}>
                      <Text style={styles.textoDescricao}>{descricao}</Text>
                   </View>
                   <View style={styles.containerButtom}>

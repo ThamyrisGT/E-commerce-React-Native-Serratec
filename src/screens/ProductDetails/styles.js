@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
   containerPrincipal:{
     height:"90%",
     width:'90%',
-    flexDirection:'column',
     alignSelf:'center',
     marginTop:20,
     
@@ -18,21 +17,26 @@ export const styles = StyleSheet.create({
       flex:3,
       backgroundColor:'white',
       flexDirection:'row',
-      justifyContent:'space-between'
+      justifyContent:'space-between',
+      borderBottomWidth: 2,
+      borderBottomColor: theme.colors.primary,
   },
   viewSuperiorComprar:{
       flex:1,
       flexDirection:'column',
-      justifyContent:'space-around',
+      justifyContent:'center',
       alignItems:'center'
   },
   textoProduto:{
-      fontSize:25,
-      marginTop:0,
+      fontSize:30,
+      fontFamily:theme.fonts.bold,
+      color:theme.colors.primary
   },
   textoPreco:{
-      fontSize:20,
-      marginTop:10
+      fontSize:25,
+      marginTop:10,
+      fontFamily:theme.fonts.medium,
+      color:theme.colors.primary
   },
   viewInferior:{
       flex:5,
@@ -50,16 +54,20 @@ export const styles = StyleSheet.create({
   },
   textoDescricao:{
       height:'90%',
-      backgroundColor:'#fff',
-      fontSize:20,
-      textAlign:'justify',
       marginTop:10,
-      marginHorizontal:15
+      marginHorizontal:15,
+      fontSize:25,
+      textAlign:'justify',
+      fontFamily:theme.fonts.medium,
+      color:theme.colors.primary
   },
   containerButtom:{
-    flex:2,
-    justifyContent:'flex-start',
-    alignItems:'center'
+    flex:1,
+    width: '90%',
+    alignSelf:'center',
+  },
+  containerFooter:{
+    flex:3
   }
 
 });
