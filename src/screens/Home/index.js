@@ -1,14 +1,38 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, FlatList, Image} from 'react-native';
 import {styles} from './styles';
-import Button from  '../../components/Button';
-import Card from  '../../components/Card';
+import {getProducts} from '../../repository/storage';
+import theme from '../../global/theme';
+import Card from '../../components/Card';
 
 const Home = ({navigation}) => {
+  const [productsList, setProductsList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const carregarProdutos = async () => {
+    if (loading) return;
+    setLoading(true);
+    const products = await getProducts();
+    setProductsList(products);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    carregarProdutos();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Card/>
-    </View>
+    <FlatList
+      style={styles.container}
+      keyExtractor={item => item.id}
+      data={productsList}
+      //ItemSeparatorComponent
+      renderItem={({item}) => (
+        
+           <Card caminhoImagem={item.url} nome={item.nome} preco={item.preco} /> 
+    
+      )}
+    />
   );
 };
 

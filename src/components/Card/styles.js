@@ -4,34 +4,36 @@ import theme from '../../global/theme';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: '40%',
-    marginTop: 100,
+    //marginTop: 100,
     borderBottomWidth: 2,
     borderBottomColor: theme.colors.primary,
     flexDirection: 'row',
     flexWrap: 'wrap', 
+    backgroundColor:'white'
   },
   image: {
-    width: 150,
+    width: 200, 
     height: 200,
-    marginTop: 35,
-    alignSelf: 'flex-start',
+    marginVertical:15
   },
   containerSecundary: {
-    justifyContent:'center',
-    marginLeft:15,
-    backgroundColor:'red'
+    flex:1,
+    justifyContent:'center',  
+    alignItems:'center',
+    marginVertical:15,
+  
   },
   title: {
-    fontFamily: theme.fonts.medium,
-    fontSize: 22,
+    fontFamily: theme.fonts.bold,
+    fontSize: 30,
     color: theme.colors.primary,
+    marginBottom:15
   },
   price: {
     fontFamily: theme.fonts.medium,
-    fontSize: 22,
+    fontSize: 24,
     color: theme.colors.primary,
     marginBottom:20,
-    textAlign:'center'
+   
   },
 });
