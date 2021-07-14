@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 
 
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = () => { 
   return (
     <Tab.Navigator
       tabBarOptions={{
