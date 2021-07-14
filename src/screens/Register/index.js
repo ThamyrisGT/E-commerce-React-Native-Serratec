@@ -35,7 +35,7 @@ const Cadastro = ({navigation}) => {
           <Button
               title="Cadastrar"
               activeOpacity={0.7}
-              cadastrar={() => navigation.navigate('Home')}
+              continuar={() => navigation.navigate('Home')}
             />
             <Text style={styles.text}> Já possui cadastro? </Text>
           </View>

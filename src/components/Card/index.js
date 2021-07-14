@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import IconStar from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Card = (props) => {
+const Card = props => {
 
   const[cor,setCor]= useState("black")
 
@@ -11,10 +11,15 @@ const Card = (props) => {
   
   return (
     <View style={styles.container}>
-        <Image 
+      <TouchableOpacity
+      onPress={props.avancar}
+      >
+      <Image 
         source={{uri:props.caminhoImagem}} 
-        style={styles.image} 
+        style={styles.image}
         />
+      </TouchableOpacity>
+       
         <View style={styles.containerSecundary}>
         <Text style={styles.title}> {title} </Text>
         <Text style={styles.price}>{props.preco}</Text>

@@ -3,19 +3,20 @@ import theme from '../../global/theme';
 
 export const styles = StyleSheet.create({
   container: {
-   flex:1
+   flex:1,
+   backgroundColor:"white",
   },
-
-  conatainerPrincipal:{
+  containerPrincipal:{
     height:"90%",
     width:'90%',
     flexDirection:'column',
     alignSelf:'center',
-    marginTop:20
+    marginTop:20,
+    
   },
   viewSuperior:{
       flex:3,
-      backgroundColor:'#fff',
+      backgroundColor:'white',
       flexDirection:'row',
       justifyContent:'space-between'
   },
@@ -23,8 +24,7 @@ export const styles = StyleSheet.create({
       flex:1,
       flexDirection:'column',
       justifyContent:'space-around',
-      alignItems:'center',
-      backgroundColor:'#fff'
+      alignItems:'center'
   },
   textoProduto:{
       fontSize:25,
@@ -36,16 +36,15 @@ export const styles = StyleSheet.create({
   },
   viewInferior:{
       flex:5,
-      backgroundColor:'#fff',
-      // flexDirection:'column',
-      justifyContent:'flex-start',
- 
-
-      
+      justifyContent:'flex-start',   
+  },
+  image:{
+    width:200,
+    height:200
   },
   linhaDivisoria:{
-      borderTopWidth:2,
-      borderTopColor:'#8a2be2',
+      borderBottomWidth: 2,
+      borderBottomColor: theme.colors.primary,
       width:'95%',
       alignSelf:'center'
   },
@@ -57,6 +56,10 @@ export const styles = StyleSheet.create({
       marginTop:10,
       marginHorizontal:15
   },
-
+  containerButtom:{
+    flex:2,
+    justifyContent:'flex-start',
+    alignItems:'center'
+  }
 
 });

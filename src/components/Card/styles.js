@@ -4,7 +4,6 @@ import theme from '../../global/theme';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    //marginTop: 100,
     borderBottomWidth: 2,
     borderBottomColor: theme.colors.primary,
     flexDirection: 'row',
