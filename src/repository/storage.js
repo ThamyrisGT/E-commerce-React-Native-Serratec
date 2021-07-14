@@ -16,7 +16,7 @@ const setCliente = async (cliente) => {
         token: cliente.token
     });
 };
-
+ 
 const getProducts =async()=>{
     console.log('cheguei aqui')
     try {
