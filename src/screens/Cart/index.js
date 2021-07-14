@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Button} from 'react-native';
-import {styles} from './styles';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Button } from 'react-native';
+import { styles } from './styles';
 // import Button from '../../components/Button';
 import apiCarrinho from '../../services/apiCarrinho';
 import storage from '../../repository/storage';
 
-const Cart = ({navigation}) => {
+const Cart = ({ navigation }) => {
   const [produtos, setProdutos] = useState([]);
 
   const cliente = {
