@@ -36,7 +36,6 @@ const Cart = ({ navigation }) => {
       .atualizaDetalhePedido(id, detalhePedido)
       .then(resposta => {
         obterProdutosCarrinho();
-        console.log(resposta);
       })
       .catch(erro => {
         console.log(erro);
@@ -44,10 +43,10 @@ const Cart = ({ navigation }) => {
   };
 
   useEffect(() => {
-    // let token = cliente.tokenAcesso;
-    // if (!token) {
-    //   navigation.navigate('Login');
-    // }
+    let token = cliente.tokenAcesso;
+    if (!token) {
+      navigation.navigate('Login');
+    }
     console.log('dentro effect');
     obterProdutosCarrinho();
   }, []);
@@ -114,58 +113,8 @@ const Cart = ({ navigation }) => {
                 {item.precoDoProduto * item.quantidadeProdutos}
               </Text>
             </View>
-          )
-
-          }
+          )}
         />
-        {/* {produtos.map((produto, index) => (
-          <View key={index}>
-            <Text>Nome do Produto: {produto.idProduto}</Text>
-            <Text>Nome do Detalhe: {produto.id}</Text>
-            <Text>Valor do produtos: {produto.precoDoProduto}</Text>
-            <Button
-              title="+"
-              onPress={() => {
-                console.log('clicado + ');
-                let pro = [...produtos];
-                let novaQuantidade = produto;
-                novaQuantidade.quantidadeProdutos++;
-                pro[index] = novaQuantidade;
-                setProdutos(pro);
-                let dto = {
-                  idPedido: produto.idPedido,
-                  idProduto: produto.idProduto,
-                  quantidade: produto.quantidadeProdutos,
-                };
-                atualizaDetalhe(novaQuantidade.id, dto);
-                obterProdutosCarrinho();
-              }}
-            />
-            <Text>Quantidade: {produto.quantidadeProdutos}</Text>
-            <Button
-              title="-"
-              onPress={() => {
-                console.log('clicado - ');
-                let pro = [...produtos];
-                let novaQuantidade = produto;
-                novaQuantidade.quantidadeProdutos--;
-                pro[index] = novaQuantidade;
-                setProdutos(pro);
-                let dto = {
-                  idPedido: produto.idPedido,
-                  idProduto: produto.idProduto,
-                  quantidade: produto.quantidadeProdutos,
-                };
-                atualizaDetalhe(novaQuantidade.id, dto);
-                obterProdutosCarrinho();
-              }}
-            />
-            <Text>
-              Valor por Produto:{' '}
-              {produto.precoDoProduto * produto.quantidadeProdutos}
-            </Text>
-          </View>
-        ))} */}
       </View>
     );
   }
