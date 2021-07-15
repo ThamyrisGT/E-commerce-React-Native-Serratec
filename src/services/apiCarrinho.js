@@ -8,6 +8,14 @@ function obterPorNumero(numero) {
     });
 }
 
+function excluirProdutoCarrinho(id) {
+    return new Promise((resolve, reject) => {
+        return Api.delete(`pedido/detalhes/${id}`)
+            .then(response => resolve(response))
+            .catch(error => reject(error))
+    })
+}
+
 // function obterPedido(id) {
 //     return new Promise((resolve, reject) => {
 //         return Api.get(`pedido/${id}`)
@@ -55,5 +63,6 @@ export default {
     obterPorNumero,
     obterTodosPedidos,
     getDetalhesPedido,
-    atualizaDetalhePedido
+    atualizaDetalhePedido,
+    excluirProdutoCarrinho
 }

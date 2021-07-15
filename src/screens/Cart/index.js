@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Button, Image} from 'react-native';
+import {View, Text, FlatList, Button, Image, Alert} from 'react-native';
 import {styles} from './styles';
 // import Button from '../../components/Button';
 import apiCarrinho from '../../services/apiCarrinho';
@@ -44,6 +44,19 @@ const Cart = () => {
       })
       .catch(erro => {
         console.log(erro);
+      });
+  };
+
+  const deletaProdutoPedido = id => {
+    apiCarrinho
+      .excluirProdutoCarrinho(id)
+      .then(resposta => {
+        console.log('deu bom');
+        
+        obterPedido();
+      })
+      .catch(error => {
+        console.log('deu ruim');
       });
   };
 
@@ -107,6 +120,12 @@ const Cart = () => {
                     quantidade: item.quantidadeProdutos,
                   };
                   atualizaDetalhe(novaQuantidade.id, dto);
+                }}
+              />
+              <Button
+                title="Excluir Produto do Pedido"
+                onPress={() => {
+                  deletaProdutoPedido(item.id);
                 }}
               />
               <Text>
