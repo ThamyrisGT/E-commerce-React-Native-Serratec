@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, StatusBar} from 'react-native';
 import {styles} from './styles';
-import InputSearch from '../../components/inputSearch';
+import Input from '../../components/input';
 
 const HeaderMain = () => {
   return (
@@ -15,7 +15,7 @@ const HeaderMain = () => {
         />
       </View>
       <View style={styles.containerInput}>
-        <InputSearch placeholder="Pesquisar" />
+        <Input placeholder="Pesquisar" />
       </View>
     </View>
   );

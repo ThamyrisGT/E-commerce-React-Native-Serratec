@@ -24,6 +24,6 @@ export const styles = StyleSheet.create({
   containerInput: {
     width:'80%',
     alignSelf: 'center',
-    marginTop: "4%"
+    marginTop: "6%"
   },
 });
