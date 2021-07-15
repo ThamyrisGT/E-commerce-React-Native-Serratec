@@ -1,10 +1,10 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    height:70,
-    flexDirection:'row', 
-    justifyContent:'space-evenly',
-    backgroundColor:'white'
-  },
+    height: 70,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    justifyContent: 'space-evenly'
+  }
 });

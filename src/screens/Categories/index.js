@@ -50,11 +50,10 @@ const Categories = ({navigation}) => {
         />
       </View>
       <FlatList
-        style={styles.container}
         keyExtractor={item => item.id}
         data={productsList}
         renderItem={({item}) => (
-          <>
+          <View>
             <Card
               caminhoImagem={item.url}
               nome={item.nome}
@@ -68,7 +67,7 @@ const Categories = ({navigation}) => {
                 })
               }
             />
-          </>
+          </View>
         )}
       />
     </>
