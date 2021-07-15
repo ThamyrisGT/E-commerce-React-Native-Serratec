@@ -5,7 +5,7 @@ import { styles } from './styles';
 import Header from '../../components/header';
 import Input from '../../components/input';
 import { findCliente } from '../../services/realm';
-import getCliente from '../../services/apiCliente';
+import {getCliente} from '../../services/apiCliente';
 import Cliente from '../../model/Cliente'
 
 const Login = ({ navigation }) => {
