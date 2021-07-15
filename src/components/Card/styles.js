@@ -4,7 +4,6 @@ import theme from '../../global/theme';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    //marginTop: 100,
     borderBottomWidth: 2,
     borderBottomColor: theme.colors.primary,
     flexDirection: 'row',
@@ -34,6 +33,8 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     color: theme.colors.primary,
     marginBottom:20,
-   
   },
+  ContainerStar:{
+    flexDirection:'row'
+  }
 });

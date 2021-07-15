@@ -58,7 +58,7 @@ const Login = ({navigation}) => {
         <Button
           title="Entrar"
           activeOpacity={0.7}
-          cadastrar={() => navigation.navigate('Home')}
+          continuar={() => navigation.navigate('Home')}
         />
       </View>
     </View>

@@ -5,7 +5,7 @@ import {styles} from './styles';
 const Button = props => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={props.cadastrar}>
+      <TouchableOpacity style={styles.button} onPress={props.continuar}>
         <Text style={styles.text}> {props.title} </Text>
       </TouchableOpacity>
     </View>
