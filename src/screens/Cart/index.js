@@ -3,10 +3,11 @@ import { View, Text, FlatList, Button } from 'react-native';
 import { styles } from './styles';
 // import Button from '../../components/Button';
 import apiCarrinho from '../../services/apiCarrinho';
-import { findProdutos } from '../../services/realm'
+import { findProdutos } from '../../services/realm';
 import storage from '../../repository/storage';
 
 const Cart = () => {
+
   const [produtos, setProdutos] = useState([]);
   const [prod, setProd] = useState([])
   const cliente = {
@@ -30,7 +31,12 @@ const Cart = () => {
       const tempResposta = resposta.data;
       let respostaFiltrada = tempResposta.filter(
         produto => produto.idPedido == pedido
+
       );
+      respostaFiltrada.map(item => {
+        console.log(item);
+      });
+      console.log('Resposta aqui: ' + respostaFiltrada);
       respostaFiltrada = respostaFiltrada.sort((a, b) => {
         return a.id - b.id;
       });
