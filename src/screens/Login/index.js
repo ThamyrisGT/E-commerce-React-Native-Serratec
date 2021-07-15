@@ -1,37 +1,40 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StatusBar} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StatusBar } from 'react-native';
 import Button from '../../components/Button';
-import {styles} from './styles';
+import { styles } from './styles';
 import Header from '../../components/header';
 import Input from '../../components/input';
-import {salvarTokenNaStorage} from '../../repository/storage';
-import {obterTokenNaStorage} from '../../repository/storage';
-import {setCliente} from '../../repository/storage';
+import { findCliente } from '../../services/realm';
 import getCliente from '../../services/apiCliente';
+import Cliente from '../../model/Cliente'
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
-  const [logado, setLogado] = useState(false);
-  // const Logar = () => {
-  //   getCliente(username, senha)
-  //     .then(resposta => {
-  //       const {Authorization} = resposta.data;
-  //       console.log(resposta);
-  //       salvarTokenNaStorage(Authorization);
-  //       setLogado(true);
-  //     })
-  //     .catch(erro => {
-  //       console.log(erro);
-  //     });
-  // };
 
-  // useEffect(() => {
-  //   let token = obterTokenNaStorage();
-  //   if (token) {
-  //     Logar();
-  //   }
-  // }, [logado]);
+
+  const logar = async () => {
+    const resposta = await getCliente(username, senha);
+    const tokenId = resposta.data;
+    console.log(tokenId);
+    if (tokenId) {
+      const realm = await findCliente();
+      try {
+        realm.write(() => {
+          realm.create('Cliente',
+            new Cliente(tokenId)
+            , 'modified')
+        })
+        console.log('deu bom')
+      } catch (error) {
+        console.log('deu ruim')
+        console.log(error)
+      }
+      finally {
+        realm.close();
+      }
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -58,13 +61,15 @@ const Login = ({navigation}) => {
         </View>
         <View style={styles.containerIntern}>
           <Text style={styles.text}>Esqueci minha senha</Text>
+          <Text>{username}</Text>
+          <Text>{senha}</Text>
         </View>
       </View>
       <View style={styles.containerInternFooter}>
         <Button
           title="Entrar"
           activeOpacity={0.7}
-          continuar={() => !logado ? navigation.navigate('Login') : navigation.navigate('Home') }
+          continuar={() => logar()}
         />
       </View>
     </View>

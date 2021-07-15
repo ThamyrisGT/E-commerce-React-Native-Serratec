@@ -32,16 +32,6 @@ const setCliente = async cliente => {
 
 const setProdutos = async produtoTemp => {
   const realm = await realm.findProdutos();
-  // realm.write(() => {
-  //     realm.create('Produto', {
-  //         id: produtoTemp.id,
-  //         nome: produtoTemp.nome,
-  //         preco: produtoTemp.preco,
-  //         idCegoria: produtoTemp.idCegoria,
-  //         url: produtoTemp.url
-  //     })
-  // }
-  // )
   realm
     .then(realm => {
       realm.write(() => {
@@ -59,40 +49,9 @@ const setProdutos = async produtoTemp => {
     });
 };
 
-/**
- * 
- *  const savePosts = async (post) => {
-    const realm = await getRealm();
-    try {
-      realm.create('Post', {
-        id: post.id,
-        userId: post.userId,
-        title: post.title,
-        body: post.body
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  } 
- */
-// const salvarTokenNaStorage = async token => {
-//   localStorage.setItem('token', token);
-// };
-
-// const obterTokenNaStorage = async () => {
-//   return localStorage.getItem('token');
-// };
-
-// const removerAutenticacao = async () => {
-//   localStorage.removeItem('token');
-// };
-
 export {
   getCliente,
   setCliente,
   setProdutos,
   getProdutoById,
-  // salvarTokenNaStorage,
-  // obterTokenNaStorage,
-  // removerAutenticacao,
 };

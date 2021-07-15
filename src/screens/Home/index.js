@@ -25,12 +25,15 @@ const Home = ({ navigation }) => {
     try {
       realm.write(() => {
         produtos.forEach(prod => {
-         realm.create('Produto', new Produto(prod), 'modified')
+          realm.create('Produto', new Produto(prod), 'modified')
         })
       })
     } catch (error) {
       console.log('deu ruim')
       console.log(error)
+    }
+    finally {
+      realm.close();
     }
   }
 
