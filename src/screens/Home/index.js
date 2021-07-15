@@ -39,7 +39,6 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-
     <>
       <HeaderMain
         entrar={() => navigation.navigate('Login')}

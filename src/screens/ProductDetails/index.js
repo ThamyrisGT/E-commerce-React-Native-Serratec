@@ -28,7 +28,6 @@ const ProductDetails = ({navigation, route}) => {
                   </View>
               </View>
               <View style={styles.viewInferior}>
-                  {/* <View style={styles.linhaDivisoria}/> */}
                   <View style={styles.containerFooter}>
                      <Text style={styles.textoDescricao}>{descricao}</Text>
                   </View>
