@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList,TouchableOpacity} from 'react-native';
 import {styles} from './styles';
-import {getProducts} from '../../repository/storage';
+import getProducts from '../../services/apiProdutos';
 import Card from '../../components/Card';
 import HeaderMain from '../../components/headerMain';
 import Button from '../../components/Button'
 
 
-const Categories = () => {
+const Categories = ({navigation}) => {
 
   const [productsList, setProductsList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,6 @@ const Categories = () => {
     if (loading) return;
     setLoading(true);
     const products = await getProducts();
-    // setProductsList(products);
     const products2 =  products.filter((item)=> { return item.idCategoria==caId})
     setProductsList(products2);
     setLoading(false);
