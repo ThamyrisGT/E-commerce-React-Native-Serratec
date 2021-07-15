@@ -7,11 +7,6 @@ import Card from '../../components/Card';
 import { findProdutos } from '../../services/realm'
 import Produto from '../../model/Produto';
 
-const saveProducts = async (listProducts) => {
-  listProducts.forEach((listProducts) => {
-    setProdutos(listProducts)
-  })
-}
 const Home = ({ navigation }) => {
   const [productsList, setProductsList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,8 +25,7 @@ const Home = ({ navigation }) => {
     try {
       realm.write(() => {
         produtos.forEach(prod => {
-          realm.create('Produto', new Produto(prod))
-          console.log('deu bom')
+          realm.create('Produto', new Produto(prod), 'modified')
         })
       })
     } catch (error) {
