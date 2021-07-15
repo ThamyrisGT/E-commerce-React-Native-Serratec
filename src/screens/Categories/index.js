@@ -50,10 +50,6 @@ const Categories = ({navigation}) => {
         />
       </View>
       <FlatList
-<<<<<<< HEAD
-        style={styles.container2}
-=======
->>>>>>> 6477cf580ea2f51fc080323ce38b4bdedd054261
         keyExtractor={item => item.id}
         data={productsList}
         renderItem={({item}) => (
