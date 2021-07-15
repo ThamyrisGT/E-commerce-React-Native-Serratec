@@ -1,6 +1,5 @@
 import realm from '../services/realm';
-import api from '../services/api';
-import Produto from '../model/Produto'
+//import Produto from '../model/Produto'
 
 const getCliente = async (id) => {
     const clientes = await realm.findCliente();
@@ -51,7 +50,7 @@ const setProdutos = async (produtoTemp) => {
             })
         })
     }).catch((error) => {
-        console.log('deu ruim')
+        console.log(error)
     })
 }
 
@@ -73,21 +72,12 @@ const setProdutos = async (produtoTemp) => {
   } 
  */
 
-const getProducts = async () => {
-    try {
-        const productslist = await api.get('produto', { responseType: 'text' })
-        if (productslist.status !== 200) throw new Error("Ocorreu uma falha")
-        return productslist.data
-    } catch (error) {
-        console.log(error)
-    }
-}
+
 
 
 export {
     getCliente,
     setCliente,
-    getProducts,
     setProdutos,
     getProdutoById
 }
