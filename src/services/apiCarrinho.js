@@ -8,7 +8,23 @@ function obterPorNumero(numero) {
     });
 }
 
-const obterTodos = async () => {
+function excluirProdutoCarrinho(id) {
+    return new Promise((resolve, reject) => {
+        return Api.delete(`pedido/detalhes/${id}`)
+            .then(response => resolve(response))
+            .catch(error => reject(error))
+    })
+}
+
+// function obterPedido(id) {
+//     return new Promise((resolve, reject) => {
+//         return Api.get(`pedido/${id}`)
+//             .then(response => resolve(response))
+//             .catch(error => reject(error))
+//     })
+// }
+
+const obterTodosPedidos = async () => {
     //Criação da Promise que irá retornar todos os pedidos.
     return new Promise((resolve, reject) => {
         return Api.get('pedido')
@@ -43,9 +59,10 @@ function atualizaDetalhePedido(id, detalhePedido) {
 }
 
 export default {
-    obterTodos,
     obterProdutos,
     obterPorNumero,
+    obterTodosPedidos,
     getDetalhesPedido,
-    atualizaDetalhePedido
+    atualizaDetalhePedido,
+    excluirProdutoCarrinho
 }

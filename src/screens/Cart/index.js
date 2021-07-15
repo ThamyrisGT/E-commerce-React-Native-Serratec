@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button } from 'react-native';
-import { styles } from './styles';
+import React, {useState, useEffect} from 'react';
+import {View, Text, FlatList, Button, Image, Alert} from 'react-native';
+import {styles} from './styles';
 // import Button from '../../components/Button';
 import apiCarrinho from '../../services/apiCarrinho';
-import { findProdutos } from '../../services/realm';
 import storage from '../../repository/storage';
 
 const Cart = () => {
-
   const [produtos, setProdutos] = useState([]);
-  const [prod, setProd] = useState([])
+  const [pedidoAtual, setPedidoAtual] = useState([{}]);
   const cliente = {
     id: 3,
     idPedido: 81,
@@ -17,69 +15,53 @@ const Cart = () => {
     //   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjI2MzUwNn0.d4zOJwkaAKXEyR-88F9WH9tsYEeEAT7nUzvGfRvL6cZiUFDK-Fl8walv6gqfxhGG3t4snkekvsNbnPRBG1xZpA',
   };
 
-  const getProdutoById = async () => {
-    const realmProdutos = await findProdutos();
-    const produtos = realmProdutos.objects('Produto');
-    return produtos;
-  }
-
   const pedido = cliente.idPedido;
 
-  const obterProdutosCarrinho = async () => {
+  const obterPedido = async () => {
     if (pedido) {
-      const resposta = await apiCarrinho.getDetalhesPedido();
-      const tempResposta = resposta.data;
-      let respostaFiltrada = tempResposta.filter(
-        produto => produto.idPedido == pedido
-
-      );
-      respostaFiltrada.map(item => {
-        console.log(item);
-      });
-      console.log('Resposta aqui: ' + respostaFiltrada);
-      respostaFiltrada = respostaFiltrada.sort((a, b) => {
-        return a.id - b.id;
-      });
-
-      let tempNomeQualquer = respostaFiltrada.map(item => item.idProduto);
-
-      console.log("tempNomeQualquer: " + tempNomeQualquer[1])
-
-      var todosProdutos = await getProdutoById();
-
-      let produtosFiltrados = [];
-
-      for (let i = 0; i < todosProdutos.length; i++) {
-        // console.log('Todos os Produtos: ' +todosProdutos[i].id)
-        for (let j in tempNomeQualquer) {
-          console.log('iD dos Produtos: ' + tempNomeQualquer[j].id)
-          if (todosProdutos[i].id == tempNomeQualquer[j].id) {
-            produtosFiltrados.push(todosProdutos[i])
-            console.log(todosProdutos[i].nome)
-          }
+      const resposta = await apiCarrinho.obterTodosPedidos();
+      const todosPedidos = resposta.data;
+      todosPedidos.forEach(item => {
+        if (item.id == pedido) {
+          setPedidoAtual(item);
+          const respostaFiltrada = item.produtosDoPedido.sort((a, b) => {
+            return a.id - b.id;
+          });
+          setProdutos(respostaFiltrada);
+          console.log(item);
+          return;
         }
-      }
-
-      setProd(produtosFiltrados)
-      setProdutos(respostaFiltrada);
+      });
     }
   };
-
-
 
   const atualizaDetalhe = (id, detalhePedido) => {
     apiCarrinho
       .atualizaDetalhePedido(id, detalhePedido)
       .then(resposta => {
-        obterProdutosCarrinho();
+        // obterProdutosCarrinho();
+        obterPedido();
       })
       .catch(erro => {
         console.log(erro);
       });
   };
 
+  const deletaProdutoPedido = id => {
+    apiCarrinho
+      .excluirProdutoCarrinho(id)
+      .then(resposta => {
+        console.log('deu bom');
+        
+        obterPedido();
+      })
+      .catch(error => {
+        console.log('deu ruim');
+      });
+  };
+
   useEffect(() => {
-    obterProdutosCarrinho();
+    obterPedido();
   }, []);
 
   if (!pedido) {
@@ -97,11 +79,14 @@ const Cart = () => {
         <FlatList
           keyExtractor={item => item.id}
           data={produtos}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <View>
-              <Text>Nome do Produto: {item.idProduto}</Text>
-              <Text>Nome do Detalhe: {item.id}</Text>
-              <Text>Valor do produtos: {item.precoDoProduto}</Text>
+              <Text>Nome do Produto: {item.nomeProduto}</Text>
+              <Text>Valor do produto: {item.precoDoProduto}</Text>
+              <Image
+                style={{width: 100, height: 100}}
+                source={{uri: item.imagemProduto}}
+              />
               <Button
                 title="+"
                 onPress={() => {
@@ -117,7 +102,6 @@ const Cart = () => {
                     quantidade: item.quantidadeProdutos,
                   };
                   atualizaDetalhe(novaQuantidade.id, dto);
-                  obterProdutosCarrinho();
                 }}
               />
               <Text>Quantidade: {item.quantidadeProdutos}</Text>
@@ -136,27 +120,22 @@ const Cart = () => {
                     quantidade: item.quantidadeProdutos,
                   };
                   atualizaDetalhe(novaQuantidade.id, dto);
-                  obterProdutosCarrinho();
+                }}
+              />
+              <Button
+                title="Excluir Produto do Pedido"
+                onPress={() => {
+                  deletaProdutoPedido(item.id);
                 }}
               />
               <Text>
-                Valor por Produto:{' '}
+                Valor total por Produto:{' '}
                 {item.precoDoProduto * item.quantidadeProdutos}
               </Text>
             </View>
           )}
         />
-        <FlatList
-          keyExtractor={item => item.id}
-          data={prod}
-          renderItem={({ item }) => (
-            <View>
-              <Text>Categoria: {item.idCategoria}</Text>
-              <Text>Nome do produto: {item.nome}</Text>
-              <Text>Valor do produtos: {item.precoDoProduto}</Text>
-            </View>
-          )}
-        />
+        <Text>Valor Total: {pedidoAtual.valorTotal}</Text>
       </View>
     );
   }
