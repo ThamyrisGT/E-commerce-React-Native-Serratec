@@ -8,37 +8,98 @@ const Star = () => {
   const [cor4, setCor4] = useState('gray');
   const [cor5, setCor5] = useState('gray');
 
+  const allGray = ()=>{
+    
+    setCor('gray')
+    setCor2('gray')
+    setCor3('gray')
+    setCor4('gray')
+    setCor5('gray')
+
+  }
+ 
+  const [core,setCore]=useState(0)
+ 
+    const acendeEstrela = (num)=>{
+     
+      switch (num){
+      case 1:
+      allGray()
+      setCor('yellow')
+       
+      break;
+  
+      case 2:
+      allGray()
+      setCor('yellow')
+      setCor2('yellow')
+      break;
+  
+      case 3:
+      allGray()
+      setCor('yellow')
+      setCor2('yellow')
+      setCor3('yellow')
+      break;
+  
+      case 4:
+      allGray()
+      setCor('yellow')
+      setCor2('yellow')
+      setCor3('yellow')
+      setCor4('yellow')
+      break;
+  
+      default:
+        allGray()
+      setCor('yellow')
+      setCor2('yellow')
+      setCor3('yellow')
+      setCor4('yellow')
+      setCor5('yellow')
+    }
+    
+    
+  }
+  
+ 
+
+
+
   return (
     <>
       <IconStar
         name="star"
         size={30}
         color={cor}
-        onPress={() => (cor == 'gray' ? setCor('yellow') : setCor('gray'))}
+        // onPress={() => (cor == 'gray' ? setCor('yellow') : setCor('gray'))}
+       
+        onPress={()=>{cor == 'gray' ? acendeEstrela(1):allGray()}}
+
       />
       <IconStar
         name="star"
         size={30}
         color={cor2}
-        onPress={() => (cor2 == 'gray' ? setCor2('yellow') : setCor2('gray'))}
+        onPress={() => {cor2 == 'gray' ? acendeEstrela(2):allGray()}}
       />
       <IconStar
         name="star"
         size={30}
         color={cor3}
-        onPress={() => (cor3 == 'gray' ? setCor3('yellow') : setCor3('gray'))}
+        onPress={() => {cor3 == 'gray' ? acendeEstrela(3):allGray()}}
       />
       <IconStar
         name="star"
         size={30}
         color={cor4}
-        onPress={() => (cor4 == 'gray' ? setCor4('yellow') : setCor4('gray'))}
+        onPress={() => {cor4 == 'gray' ? acendeEstrela(4):allGray()}}
       />
       <IconStar
         name="star"
         size={30}
         color={cor5}
-        onPress={() => (cor5 == 'gray' ? setCor5('yellow') : setCor5('gray'))}
+        onPress={() => {cor5 == 'gray' ? acendeEstrela(5):allGray()}}
       />
     </>
   );
