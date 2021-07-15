@@ -8,13 +8,6 @@ const Star = () => {
   const [cor4, setCor4] = useState('gray');
   const [cor5, setCor5] = useState('gray');
 
-  const setarSegunda = ()=>{
-    if(cor=='gray' && cor2=='gray'){
-      setCor('yellow');
-      setCor2('yellow');
-
-    }
-  }
   return (
     <>
       <IconStar
@@ -27,25 +20,25 @@ const Star = () => {
         name="star"
         size={30}
         color={cor2}
-        onPress={() => setarSegunda }
+        onPress={() => (cor2 == 'gray' ? setCor2('yellow') : setCor2('gray'))}
       />
       <IconStar
         name="star"
         size={30}
         color={cor3}
-        //onPress={() => (cor3 == 'gray' ? setCor3('yellow') : setCor3('gray'))}
+        onPress={() => (cor3 == 'gray' ? setCor3('yellow') : setCor3('gray'))}
       />
       <IconStar
         name="star"
         size={30}
         color={cor4}
-        //onPress={() => (cor4 == 'gray' ? setCor4('yellow') : setCor4('gray'))}
+        onPress={() => (cor4 == 'gray' ? setCor4('yellow') : setCor4('gray'))}
       />
       <IconStar
         name="star"
         size={30}
         color={cor5}
-        //onPress={() => (cor5 == 'gray' ? setCor5('yellow') : setCor5('gray'))}
+        onPress={() => (cor5 == 'gray' ? setCor5('yellow') : setCor5('gray'))}
       />
     </>
   );
