@@ -23,7 +23,10 @@ const Home = ({navigation}) => {
 
   return (
     <>
-      <HeaderMain />
+      <HeaderMain 
+      entrar={() => navigation.navigate('Login')} 
+      cadastrar={() => navigation.navigate('Register')}
+      />
       <FlatList
         style={styles.container}
         keyExtractor={item => item.id}

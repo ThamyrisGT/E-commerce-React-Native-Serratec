@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Image, StatusBar} from 'react-native';
+import {Text, View, Image, StatusBar, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import Input from '../../components/input';
 
-const HeaderMain = () => {
+const HeaderMain = props => {
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />
@@ -13,6 +13,14 @@ const HeaderMain = () => {
           source={require('../../assets/logoCor.png')}
           resizeMode="contain"
         />
+        <TouchableOpacity style={styles.containerLogin}>
+          <Text style={styles.textLogin} onPress={props.entrar}>
+            Login |{' '}
+          </Text>
+          <Text style={styles.textLogin} onPress={props.cadastrar}>
+            Cadastro
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.containerInput}>
         <Input placeholder="Pesquisar" />

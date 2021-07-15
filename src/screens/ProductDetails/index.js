@@ -11,10 +11,8 @@ const ProductDetails = ({navigation, route}) => {
   const descricao = route.params.descricao
   const imagem = route.params.imagem
 
-
   return (
     <View style={styles.container}>
-      <StatusBar hidden={true} translucent />
       <Header
           text={'Voltar'}
           screen={'Detalhes'}
