@@ -67,6 +67,8 @@ const Cart = ({ navigation }) => {
       });
   };
 
+  // setInterval(() => findClienteStorage(), 5000)
+
   useEffect(() => {
     findClienteStorage();
   }, []);
@@ -75,7 +77,7 @@ const Cart = ({ navigation }) => {
     return navigation.addListener('focus', () => {
       findClienteStorage();
     })
-  }, [navigation])
+  }, [navigation,produtos,pedidoAtual])
 
   if (pedidoAtual.id == 0) {
     return (
