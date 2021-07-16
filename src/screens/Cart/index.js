@@ -70,7 +70,7 @@ const Cart = ({ navigation }) => {
   // setInterval(() => findClienteStorage(), 5000)
 
   useEffect(() => {
-    findClienteStorage();
+    obterPedido(pedidoAtual.id);
   }, []);
 
   useEffect(() => {
@@ -164,10 +164,10 @@ const Cart = ({ navigation }) => {
         />
         <View style={styles.containerFooter}>
           <Text style={styles.textFooter}>
-            Valor Total: {pedidoAtual.valorTotal}
+            Valor Total: {produtos?.length > 0 ? pedidoAtual.valorTotal : 0}
           </Text>
-          <Button title="Finalizar Pedido" 
-           continuar={() => navigation.navigate('Payments')}
+          <Button title="Finalizar Pedido"
+            continuar={() => navigation.navigate('Payments')}
           />
         </View>
       </View>

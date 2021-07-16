@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {View, FlatList} from 'react-native';
-import {styles} from './styles';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList } from 'react-native';
+import { styles } from './styles';
 import getProducts from '../../services/apiProdutos';
 import Card from '../../components/Card';
 import HeaderMain from '../../components/headerMain';
 import Button from '../../components/Button';
 
-const Categories = ({navigation}) => {
+const Categories = ({ navigation }) => {
   const [productsList, setProductsList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [caId, setCatID] = useState(1);
@@ -28,9 +28,9 @@ const Categories = ({navigation}) => {
 
   return (
     <>
-      <HeaderMain 
-       entrar={() => navigation.navigate('Login')}
-       cadastrar={() => navigation.navigate('Register')}
+      <HeaderMain
+        entrar={() => navigation.navigate('Login')}
+        cadastrar={() => navigation.navigate('Register')}
       />
       <View style={styles.container}>
         <Button
@@ -55,7 +55,7 @@ const Categories = ({navigation}) => {
       <FlatList
         keyExtractor={item => item.id}
         data={productsList}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <>
             <Card
               caminhoImagem={item.url}
@@ -66,6 +66,7 @@ const Categories = ({navigation}) => {
                   nome: item.nome,
                   preco: item.preco,
                   descricao: item.descricao,
+                  idProduto: item.id,
                   imagem: item.url,
                 })
               }
