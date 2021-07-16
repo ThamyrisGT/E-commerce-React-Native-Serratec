@@ -1,44 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StatusBar} from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StatusBar } from 'react-native';
 import Button from '../../components/Button';
-import {styles} from './styles';
+import { styles } from './styles';
 import Header from '../../components/header';
 import Input from '../../components/input';
-import {salvarTokenNaStorage} from '../../repository/storage';
-import {obterTokenNaStorage} from '../../repository/storage';
-import {setCliente} from '../../repository/storage';
-import getCliente from '../../services/apiCliente';
+import { logar } from '../../utils/userAccont';
+import { findClienteStorage } from '../../repository/storage'
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
-  const [logado, setLogado] = useState(false);
-  // const Logar = () => {
-  //   getCliente(username, senha)
-  //     .then(resposta => {
-  //       const {Authorization} = resposta.data;
-  //       console.log(resposta);
-  //       salvarTokenNaStorage(Authorization);
-  //       setLogado(true);
-  //     })
-  //     .catch(erro => {
-  //       console.log(erro);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   let token = obterTokenNaStorage();
-  //   if (token) {
-  //     Logar();
-  //   }
-  // }, [logado]);
 
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} translucent />
       <Header
         text={'Voltar'}
-        screen={'Login'}
+        screen={'    Login'}
         voltar={() => navigation.navigate('Home')}
       />
       <View style={styles.containerIntern}>
@@ -64,7 +42,7 @@ const Login = ({navigation}) => {
         <Button
           title="Entrar"
           activeOpacity={0.7}
-          continuar={() => !logado ? navigation.navigate('Login') : navigation.navigate('Home') }
+          continuar={() => logar(username, senha)}
         />
       </View>
     </View>

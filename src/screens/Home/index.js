@@ -3,9 +3,8 @@ import { FlatList } from 'react-native';
 import { styles } from './styles';
 import getProducts from '../../services/apiProdutos';
 import Card from '../../components/Card';
-import { findProdutos } from '../../services/realm'
-import Produto from '../../model/Produto';
 import HeaderMain from '../../components/headerMain';
+
 
 const Home = ({ navigation }) => {
   const [productsList, setProductsList] = useState([]);
@@ -15,28 +14,31 @@ const Home = ({ navigation }) => {
     if (loading) return;
     setLoading(true);
     const products = await getProducts();
-    salvarProdutos(products);
     setProductsList(products);
     setLoading(false);
   };
 
-  const salvarProdutos = async (produtos) => {
-    const realm = await findProdutos();
-    try {
-      realm.write(() => {
-        produtos.forEach(prod => {
-         realm.create('Produto', new Produto(prod), 'modified')
-        })
-      })
-    } catch (error) {
-      console.log('deu ruim')
-      console.log(error)
-    }
-  }
+  // const salvarProdutos = async (produtos) => {
+  //   const realm = await findProdutos();
+  //   try {
+  //     realm.write(() => {
+  //       produtos.forEach(prod => {
+  //         realm.create('Produto', new Produto(prod), 'modified')
+  //       })
+  //     })
+  //   } catch (error) {
+  //     console.log('deu ruim ao salvar os produtos')
+  //     console.log(error)
+  //   }
+  //   finally {
+  //     realm.close();
+  //   }
+  // }
 
   useEffect(() => {
     carregarProdutos();
   }, []);
+
 
   return (
     <>
@@ -53,13 +55,14 @@ const Home = ({ navigation }) => {
             <Card
               caminhoImagem={item.url}
               nome={item.nome}
-              preco={item.preco}
+              preco={`R$ ${item.preco}`}
               avancar={() =>
                 navigation.navigate('ProductDetails', {
                   nome: item.nome,
                   preco: item.preco,
                   descricao: item.descricao,
                   imagem: item.url,
+                  idProduto: item.id
                 })
               }
             />

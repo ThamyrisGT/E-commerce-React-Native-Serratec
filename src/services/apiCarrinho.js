@@ -16,14 +16,6 @@ function excluirProdutoCarrinho(id) {
     })
 }
 
-// function obterPedido(id) {
-//     return new Promise((resolve, reject) => {
-//         return Api.get(`pedido/${id}`)
-//             .then(response => resolve(response))
-//             .catch(error => reject(error))
-//     })
-// }
-
 const obterTodosPedidos = async () => {
     //Criação da Promise que irá retornar todos os pedidos.
     return new Promise((resolve, reject) => {

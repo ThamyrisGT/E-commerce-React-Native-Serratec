@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image, StatusBar, TouchableOpacity} from 'react-native';
+import {Text, View, Image, StatusBar} from 'react-native';
 import {styles} from './styles';
 import Input from '../../components/input';
 
@@ -13,14 +13,14 @@ const HeaderMain = props => {
           source={require('../../assets/logoCor.png')}
           resizeMode="contain"
         />
-        <TouchableOpacity style={styles.containerLogin}>
+        <View style={styles.containerLogin}>
           <Text style={styles.textLogin} onPress={props.entrar}>
             Login |{' '}
           </Text>
           <Text style={styles.textLogin} onPress={props.cadastrar}>
             Cadastro
           </Text>
-        </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.containerInput}>
         <Input placeholder="Pesquisar" />
