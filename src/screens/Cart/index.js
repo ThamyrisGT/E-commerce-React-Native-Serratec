@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image } from 'react-native';
-import { styles } from './styles';
+import React, {useState, useEffect} from 'react';
+import {View, Text, FlatList, Image} from 'react-native';
+import {styles} from './styles';
 import apiCarrinho from '../../services/apiCarrinho';
 import Header from '../../components/header';
 import Button from '../../components/Button';
@@ -9,9 +9,9 @@ import IconPlus from 'react-native-vector-icons/Entypo';
 import IconMin from 'react-native-vector-icons/Entypo';
 import theme from '../../global/theme';
 // import { findClienteStorage } from '../../repository/storage'
-import { findCliente } from '../../services/realm';
+import {findCliente} from '../../services/realm';
 
-const Cart = ({ navigation }) => {
+const Cart = ({navigation}) => {
   const [produtos, setProdutos] = useState([]);
   const [pedidoAtual, setPedidoAtual] = useState([{}]);
 
@@ -19,13 +19,13 @@ const Cart = ({ navigation }) => {
     const realm = await findCliente();
     const realmCliente = realm.objects('Cliente');
     let clienteAtual = {};
-    realmCliente.forEach(item => clienteAtual = item);
+    realmCliente.forEach(item => (clienteAtual = item));
     const pedido = clienteAtual.idPedido;
-    console.log(pedido)
-    obterPedido(pedido)
-  }
+    console.log(pedido);
+    obterPedido(pedido);
+  };
 
-  const obterPedido = async (pedido) => {
+  const obterPedido = async pedido => {
     if (pedido != 0) {
       const resposta = await apiCarrinho.obterTodosPedidos();
       const todosPedidos = resposta.data;
@@ -74,8 +74,8 @@ const Cart = ({ navigation }) => {
   useEffect(() => {
     return navigation.addListener('focus', () => {
       findClienteStorage();
-    })
-  }, [navigation])
+    });
+  }, [navigation]);
 
   if (pedidoAtual.id == 0) {
     return (
@@ -99,9 +99,9 @@ const Cart = ({ navigation }) => {
         <FlatList
           keyExtractor={item => item.id}
           data={produtos}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <View style={styles.containerCard}>
-              <Image style={styles.image} source={{ uri: item.imagemProduto }} />
+              <Image style={styles.image} source={{uri: item.imagemProduto}} />
               <View style={styles.containerInfo}>
                 <Text style={styles.title}>{item.nomeProduto}</Text>
                 <Text style={styles.price}>Valor:{item.precoDoProduto}</Text>
@@ -164,7 +164,8 @@ const Cart = ({ navigation }) => {
           <Text style={styles.textFooter}>
             Valor Total: {produtos?.length > 0 ? pedidoAtual.valorTotal : 0}
           </Text>
-          <Button title="Finalizar Pedido"
+          <Button
+            title="Finalizar Pedido"
             continuar={() => navigation.navigate('Payments')}
           />
         </View>

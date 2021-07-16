@@ -13,6 +13,7 @@ import Header from '../../components/header';
 import InputUnderline from '../../components/inputUnderline';
 import DatePicker from 'react-native-date-picker';
 import { cadastrar } from '../../utils/userAccont';
+import apiCep from '../../services/apiCep';
 
 const Cadastro = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -56,6 +57,32 @@ const Cadastro = ({ navigation }) => {
       },
     ],
   };
+
+  const obterCep = async cep => {
+    let resposta = await apiCep
+      .get(`${cep}/json`)
+      .then(response => {
+        return response.data;
+      })
+      .catch(erro => {
+        console.log('Erro');
+      });
+    setRua(resposta.logradouro);
+    setBairro(resposta.bairro);
+    setCidade(resposta.localidade);
+  };
+
+  const buscar = () => {
+    if (cep.length == 8) {
+      obterCep(cep);
+    }
+  };
+
+  useEffect(() => {
+    buscar();
+  }, [cep]);
+
+
 
   const fazerCadastro = async () => {
     const cadastrou = await cadastrar(usuario);
@@ -159,19 +186,16 @@ const Cadastro = ({ navigation }) => {
 
           <InputUnderline
             placeholder="Rua"
-            onChangeText={e => setRua(e)}
             value={rua}
           />
 
           <InputUnderline
             placeholder="Bairro"
-            onChangeText={e => setBairro(e)}
             value={bairro}
           />
 
           <InputUnderline
             placeholder="Cidade"
-            onChangeText={e => setCidade(e)}
             value={cidade}
           />
 
