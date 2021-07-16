@@ -6,7 +6,6 @@ import {findCliente} from '../../services/realm';
 
 const HeaderMain = props => {
   const [logado, setLogado] = useState(false);
-
   const findToken = async () => {
     const realm = await findCliente();
     const realmCliente = realm.objects('Cliente');
@@ -19,11 +18,7 @@ const HeaderMain = props => {
       setLogado(false);
     }
   };
-
-  const removerToken = async ()=>{
-
-    // REMOVER TOKEN AQUI !!!
-  }
+  
 
   useEffect(() => {
     findToken();
@@ -49,7 +44,7 @@ const HeaderMain = props => {
           </View>
         ) : (
           <View style={styles.containerLogin}>
-            <Text style={styles.textLogin} onPress={() => removerToken()}>
+            <Text style={styles.textLogin}>
               Logout
             </Text>
           </View>
