@@ -153,7 +153,9 @@ const Cart = ({navigation}) => {
           <Text style={styles.textFooter}>
             Valor Total: {pedidoAtual.valorTotal}
           </Text>
-          <Button title="Finalizar Pedido" />
+          <Button title="Finalizar Pedido" 
+           continuar={() => navigation.navigate('Payments')}
+          />
         </View>
       </View>
     );

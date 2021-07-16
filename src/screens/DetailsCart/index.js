@@ -10,7 +10,7 @@ const DetailsCart = ({navigation, route}) => {
     <View style={styles.container}>
       <Header
         text={'Voltar'}
-        screen={'Detalhes'}
+        screen={' Detalhes'}
         voltar={() => navigation.goBack()}
       />
       <View>

@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
       <StatusBar hidden={true} translucent />
       <Header
         text={'Voltar'}
-        screen={'Login'}
+        screen={'    Login'}
         voltar={() => navigation.navigate('Home')}
       />
       <View style={styles.containerIntern}>

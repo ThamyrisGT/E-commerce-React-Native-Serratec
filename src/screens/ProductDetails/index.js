@@ -13,7 +13,7 @@ const ProductDetails = ({navigation, route}) => {
     <View style={styles.container}>
       <Header
         text={'Voltar'}
-        screen={'Detalhes'}
+        screen={' Detalhes'}
         voltar={() => navigation.navigate('Home')}
       />
       <View>
