@@ -35,8 +35,8 @@ const cadastrar = async (usuario) => {
     const resposta = await register(usuario);
     console.log(usuario)
     if (resposta.status == 201) {
-        logar(usuario.username, usuario.senha)
-        console.log("deu bom")
+        const logou = await logar(usuario.username, usuario.senha)
+        return logou;
     } else {
         throw new Error("deu ruim")
     }

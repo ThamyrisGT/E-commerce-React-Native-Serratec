@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,13 @@ import {
   StyleSheet,
 } from 'react-native';
 import Button from '../../components/Button';
-import {styles} from './styles';
+import { styles } from './styles';
 import Header from '../../components/header';
 import InputUnderline from '../../components/inputUnderline';
 import DatePicker from 'react-native-date-picker';
-import {cadastrar} from '../../utils/userAccont';
+import { cadastrar } from '../../utils/userAccont';
 
-const Cadastro = ({navigation}) => {
+const Cadastro = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -56,6 +56,18 @@ const Cadastro = ({navigation}) => {
       },
     ],
   };
+
+  const fazerCadastro = async () => {
+    const cadastrou = await cadastrar(usuario);
+    if (cadastrou) {
+      navigation.navigate('Home')
+    } else {
+      Alert.alert(
+        'Atenção',
+        'Verifique os dados e tente novamente!'
+      )
+    }
+  }
 
   return (
     <ScrollView>
@@ -181,7 +193,7 @@ const Cadastro = ({navigation}) => {
             <Button
               title="Cadastrar"
               activeOpacity={0.7}
-              continuar={() => cadastrar(usuario)}
+              continuar={() => fazerCadastro()}
             />
             <Text style={styles.text}> Já possui cadastro? </Text>
           </View>
