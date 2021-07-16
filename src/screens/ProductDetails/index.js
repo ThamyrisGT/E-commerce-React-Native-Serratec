@@ -77,19 +77,6 @@ const ProductDetails = ({ navigation, route }) => {
     }
   }
 
-  /**
-   * {
-  "idCliente": 0,
-  "produtosDoPedido": [
-    {
-      "idPedido": 0,
-      "idProduto": 0,
-      "quantidade": 0
-    }
-  ]
-}
-   */
-
   return (
     <View style={styles.container}>
       <Header
@@ -102,7 +89,7 @@ const ProductDetails = ({ navigation, route }) => {
           <View style={styles.viewSuperior}>
             <Image source={{ uri: imagem }} style={styles.image} />
             <View style={styles.viewSuperiorComprar}>
-              <Text style={styles.textoProduto}>{nome}</Text>
+              <Text style={styles.textoProduto}>{nome.replace('-', ` `)}</Text>
               <Text style={styles.textoPreco}>R$ {preco}</Text>
             </View>
           </View>

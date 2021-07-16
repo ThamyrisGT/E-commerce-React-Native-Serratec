@@ -1,13 +1,18 @@
 import { findCliente } from '../services/realm';
 import { register, getCliente } from '../services/apiCliente';
-import Cliente from '../model/Cliente'
+import Cliente from '../model/Cliente';
+
 
 
 const logar = async (username, senha) => {
 
-    const resposta = await getCliente(username, senha);
+    const resposta = await getCliente(username, senha).catch(
+        error => {
+            console.log(error);
+            return false;
+        }
+    );
     const tokenId = resposta.data;
-    console.log(tokenId);
 
     if (tokenId) {
         const realm = await findCliente();
@@ -18,12 +23,10 @@ const logar = async (username, senha) => {
                     , 'modified')
             })
             console.log('deu bom')
+            return true;
         } catch (error) {
             console.log('deu ruim')
             console.log(error)
-        }
-        finally {
-            realm.close();
         }
     }
 }

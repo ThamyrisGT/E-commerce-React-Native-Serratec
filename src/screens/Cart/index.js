@@ -105,7 +105,7 @@ const Cart = ({ navigation }) => {
             <View style={styles.containerCard}>
               <Image style={styles.image} source={{ uri: item.imagemProduto }} />
               <View style={styles.containerInfo}>
-                <Text style={styles.title}>{item.nomeProduto}</Text>
+                <Text style={styles.title}>{item.nomeProduto.replace('-', ` `)}</Text>
                 <Text style={styles.price}>Valor:{item.precoDoProduto}</Text>
                 <View style={styles.containerAjuste}>
                   <IconPlus

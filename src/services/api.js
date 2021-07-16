@@ -1,18 +1,47 @@
 import axios from 'axios';
+import { findCliente } from './realm';
 
 const api = axios.create({
     baseURL: 'https://serratec-ecomerce.herokuapp.com/'
 });
 
-api.interceptors.request.use((config) => {
+const findClienteStorage = async () => {
+    const realm = await findCliente();
+    const realmCliente = realm.objects('Cliente');
+    let clienteAtual = {};
+    realmCliente.forEach(item => clienteAtual = item);
+    const token = clienteAtual.tokenAcesso;
+    if (token != "") {
+        api.interceptors.request.use((config) => {
 
-    let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjQ4MDc3NX0.Dk78depKUNp70TOKcrCqrPAjOmHkRoFpHos4QByUMdhWA3UIOM5ifDP5d12DQiHhAOI-0WIl6hiCqTq8Md6ulA"
+            if (token) {
+                config.headers.Authorization = token;
+            }
 
-    if (token) {
-        config.headers.Authorization = token;
+            return config;
+
+        }, (error) => {
+            try {
+                realm.write(() => {
+                    realm.create('Cliente', {
+                        idLocal: 1,
+                        id: clienteAtual.id,
+                        idPedido: clienteAtual.idPedido,
+                        tokenAcesso: ""
+                    }
+                        , 'modified')
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        );
     }
-    return config;
-})
+}
+
+findClienteStorage();
 
 
 export default api;

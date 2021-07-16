@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
-import { Text, View, StatusBar } from 'react-native';
+import { Text, View, StatusBar, Alert } from 'react-native';
 import Button from '../../components/Button';
 import { styles } from './styles';
 import Header from '../../components/header';
 import Input from '../../components/input';
 import { logar } from '../../utils/userAccont';
-import { findClienteStorage } from '../../repository/storage'
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
+
+  const fazerLogin = async () => {
+    const logou = await logar(username, senha);
+    if (logou) {
+      navigation.navigate('Home')
+    } else {
+      Alert.alert('Atenção', 'Usuário ou senha inválidos')
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -42,7 +50,7 @@ const Login = ({ navigation }) => {
         <Button
           title="Entrar"
           activeOpacity={0.7}
-          continuar={() => logar(username, senha)}
+          continuar={() => fazerLogin()}
         />
       </View>
     </View>
