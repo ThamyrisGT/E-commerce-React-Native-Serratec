@@ -8,16 +8,24 @@ import IconClose from 'react-native-vector-icons/Ionicons';
 import IconPlus from 'react-native-vector-icons/Entypo';
 import IconMin from 'react-native-vector-icons/Entypo';
 import theme from '../../global/theme';
-import { findClienteStorage } from '../../repository/storage'
+// import { findClienteStorage } from '../../repository/storage'
+import { findCliente } from '../../services/realm';
 
 const Cart = ({ navigation }) => {
   const [produtos, setProdutos] = useState([]);
   const [pedidoAtual, setPedidoAtual] = useState([{}]);
-  const cliente = findClienteStorage();
 
-  const pedido = cliente.idPedido;
+  const findClienteStorage = async () => {
+    const realm = await findCliente();
+    const realmCliente = realm.objects('Cliente');
+    let clienteAtual = {};
+    realmCliente.forEach(item => clienteAtual = item);
+    const pedido = clienteAtual.idPedido;
+    console.log(pedido)
+    obterPedido(pedido)
+  }
 
-  const obterPedido = async () => {
+  const obterPedido = async (pedido) => {
     if (pedido != 0) {
       const resposta = await apiCarrinho.obterTodosPedidos();
       const todosPedidos = resposta.data;
@@ -34,12 +42,13 @@ const Cart = ({ navigation }) => {
       });
     }
   };
+
   const atualizaDetalhe = (id, detalhePedido) => {
     apiCarrinho
       .atualizaDetalhePedido(id, detalhePedido)
       .then(resposta => {
         // obterProdutosCarrinho();
-        obterPedido();
+        obterPedido(pedidoAtual.id);
       })
       .catch(erro => {
         console.log(erro);
@@ -51,7 +60,7 @@ const Cart = ({ navigation }) => {
       .then(resposta => {
         console.log('deu bom');
 
-        obterPedido();
+        obterPedido(pedidoAtual.id);
       })
       .catch(error => {
         console.log('deu ruim');
@@ -59,10 +68,16 @@ const Cart = ({ navigation }) => {
   };
 
   useEffect(() => {
-    obterPedido();
+    findClienteStorage();
   }, []);
 
-  if (pedido == 0) {
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      findClienteStorage();
+    })
+  }, [navigation])
+
+  if (pedidoAtual.id == 0) {
     return (
       <View>
         <Header

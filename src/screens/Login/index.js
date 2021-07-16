@@ -11,8 +11,6 @@ const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
 
-  findClienteStorage();
-
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} translucent />
