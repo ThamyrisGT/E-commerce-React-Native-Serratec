@@ -1,15 +1,80 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
-import {styles} from './styles';
+import { View, Text, Image } from 'react-native';
+import { styles } from './styles';
 import Button from '../../components/Button';
 import Header from '../../components/header';
+import { findClienteStorage } from '../../repository/storage'
+import api from '../../services/api'
+import { findCliente } from '../../services/realm';
 
-
-const DetailsCategories = ({navigation, route}) => {
+const DetailsCategories = ({ navigation, route }) => {
   const nome = route.params.nome;
   const preco = route.params.preco;
   const descricao = route.params.descricao;
   const imagem = route.params.imagem;
+  const idProduto = route.params.idProduto;
+
+  const pedidoProduto = async () => {
+    const cliente = await findClienteStorage();
+    const realm = await findCliente();
+    const pedido = cliente.idPedido;
+    console.log(pedido)
+    if (pedido == 0) {
+      const novoPedido = {
+        idCliente: cliente.id,
+        produtosDoPedido: [{
+          idProduto: idProduto,
+          quantidade: 1
+        }]
+      }
+      api.post('pedido', novoPedido)
+        .then(response => {
+          const resposta = response.data;
+          const numeroPedido = resposta.idPedido
+          const idPedidoInt = parseInt(numeroPedido)
+          console.log(resposta.idPedido)
+          try {
+            realm.write(() => {
+              realm.create('Cliente', {
+                idLocal: 1,
+                id: cliente.id,
+                tokenAcesso: cliente.tokenAcesso,
+                idPedido: idPedidoInt
+              }, 'modified')
+            })
+            console.log('deu bom ao criar o pedido');
+            realm.close();
+            navigation.navigate('Cart');
+          } catch (error) {
+            console.log('deu ruim ao criar o pedido')
+            console.log(error)
+            realm.close();
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } else {
+      if (pedido > 0) {
+        let dto = {
+          idPedido: pedido,
+          idProduto: idProduto,
+          quantidade: 1,
+        };
+        api.post('pedido/detalhes/', dto)
+          .then(response => {
+            console.log(response)
+            realm.close();
+            navigation.navigate('Cart');
+          })
+          .catch(error => {
+            console.log(error)
+            navigation.navigate('Cart');
+            realm.close();
+          })
+      }
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -21,7 +86,7 @@ const DetailsCategories = ({navigation, route}) => {
       <View>
         <View style={styles.containerPrincipal}>
           <View style={styles.viewSuperior}>
-            <Image source={{uri: imagem}} style={styles.image} />
+            <Image source={{ uri: imagem }} style={styles.image} />
             <View style={styles.viewSuperiorComprar}>
               <Text style={styles.textoProduto}>{nome}</Text>
               <Text style={styles.textoPreco}>R$ {preco}</Text>
@@ -35,7 +100,9 @@ const DetailsCategories = ({navigation, route}) => {
               <Button
                 title="Adicionar ao Carrinho"
                 activeOpacity={0.7}
-                continuar={() => navigation.navigate('Cart')}
+                continuar={() => {
+                  pedidoProduto()
+                }}
               />
             </View>
           </View>
