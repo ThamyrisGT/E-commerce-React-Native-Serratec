@@ -3,18 +3,15 @@ import {View, Text, Image} from 'react-native';
 import {styles} from './styles';
 import Button from '../../components/Button';
 import Header from '../../components/header';
-const ProductDetails = ({navigation, route}) => {
-  const nome = route.params.nome;
-  const preco = route.params.preco;
-  const descricao = route.params.descricao;
-  const imagem = route.params.imagem;
+
+const DetailsCart = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
       <Header
         text={'Voltar'}
         screen={'Detalhes'}
-        voltar={() => navigation.navigate('Home')}
+        voltar={() => navigation.goBack()}
       />
       <View>
         <View style={styles.containerPrincipal}>
@@ -42,5 +39,4 @@ const ProductDetails = ({navigation, route}) => {
     </View>
   );
 };
-
-export default ProductDetails;
+export default DetailsCart;

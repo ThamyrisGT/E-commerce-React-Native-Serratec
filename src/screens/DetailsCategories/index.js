@@ -3,7 +3,9 @@ import {View, Text, Image} from 'react-native';
 import {styles} from './styles';
 import Button from '../../components/Button';
 import Header from '../../components/header';
-const ProductDetails = ({navigation, route}) => {
+
+
+const DetailsCategories = ({navigation, route}) => {
   const nome = route.params.nome;
   const preco = route.params.preco;
   const descricao = route.params.descricao;
@@ -14,7 +16,7 @@ const ProductDetails = ({navigation, route}) => {
       <Header
         text={'Voltar'}
         screen={'Detalhes'}
-        voltar={() => navigation.navigate('Home')}
+        voltar={() => navigation.navigate('Categories')}
       />
       <View>
         <View style={styles.containerPrincipal}>
@@ -43,4 +45,4 @@ const ProductDetails = ({navigation, route}) => {
   );
 };
 
-export default ProductDetails;
+export default DetailsCategories;

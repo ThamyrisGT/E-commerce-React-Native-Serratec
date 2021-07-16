@@ -59,7 +59,7 @@ const Home = ({ navigation }) => {
             <Card
               caminhoImagem={item.url}
               nome={item.nome}
-              preco={item.preco}
+              preco={`R$ ${item.preco}`}
               avancar={() =>
                 navigation.navigate('ProductDetails', {
                   nome: item.nome,
