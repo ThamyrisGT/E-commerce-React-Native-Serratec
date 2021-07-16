@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+
 import {
   View,
   Text,
   StatusBar,
   ScrollView,
-  Modal,
-  StyleSheet,
+  Modal
 } from 'react-native';
 import Button from '../../components/Button';
 import { styles } from './styles';
@@ -13,9 +13,12 @@ import Header from '../../components/header';
 import InputUnderline from '../../components/inputUnderline';
 import DatePicker from 'react-native-date-picker';
 import { cadastrar } from '../../utils/userAccont';
+import apiCep from '../../services/apiCep';
 
 const Cadastro = ({ navigation }) => {
+
   const [modalVisible, setModalVisible] = useState(false);
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -57,6 +60,7 @@ const Cadastro = ({ navigation }) => {
     ],
   };
 
+
   const fazerCadastro = async () => {
     const cadastrou = await cadastrar(usuario);
     if (cadastrou) {
@@ -68,6 +72,30 @@ const Cadastro = ({ navigation }) => {
       )
     }
   }
+
+  const obterCep = async cep => {
+    let resposta = await apiCep
+      .get(`${cep}/json`)
+      .then(response => {
+        return response.data;
+      })
+      .catch(erro => {
+        console.log('Erro');
+      });
+    setRua(resposta.logradouro);
+    setBairro(resposta.bairro);
+    setCidade(resposta.localidade);
+  };
+
+  const buscar = () => {
+    if (cep.length == 8) {
+      obterCep(cep);
+    }
+  };
+
+  useEffect(() => {
+    buscar();
+  }, [cep]);
 
   return (
     <ScrollView>
@@ -119,11 +147,21 @@ const Cadastro = ({ navigation }) => {
             value={telefone}
           />
 
+
+          <DatePicker
+            date={nascimento}
+            onDateChange={data => setNascimento(data)}
+            mode="date"
+            androidVariant="nativeAndroid"
+            showOn="button"
+          />
+
           <InputUnderline
             placeholder="Data de Nascimento"
             onClick={() => setModalVisible(true)}
             value={`${dia}/${mes + 1}/${ano}`}
             onFocus={() => setModalVisible(true)}
+
           />
 
           <Modal
@@ -159,19 +197,16 @@ const Cadastro = ({ navigation }) => {
 
           <InputUnderline
             placeholder="Rua"
-            onChangeText={e => setRua(e)}
             value={rua}
           />
 
           <InputUnderline
             placeholder="Bairro"
-            onChangeText={e => setBairro(e)}
             value={bairro}
           />
 
           <InputUnderline
             placeholder="Cidade"
-            onChangeText={e => setCidade(e)}
             value={cidade}
           />
 
