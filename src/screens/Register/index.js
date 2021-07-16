@@ -146,7 +146,7 @@ const Cadastro = ({navigation}) => {
           <InputUnderline
             placeholder="Data de Nascimento"
             onClick={() => setModalVisible(true)}
-            value={`${dia}/${mes+1}/${ano}`}
+            value={`${dia}/${mes + 1}/${ano}`}
             onFocus={() => setModalVisible(true)}
 
           />
