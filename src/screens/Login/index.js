@@ -10,6 +10,15 @@ const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
 
+  const fazerLogin = async () => {
+    const logou = await logar(username, senha);
+    if (logou) {
+      navigation.navigate('Home')
+    } else {
+      Alert.alert('Atenção', 'Usuário ou senha inválidos')
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} translucent />
@@ -41,13 +50,7 @@ const Login = ({ navigation }) => {
         <Button
           title="Entrar"
           activeOpacity={0.7}
-          continuar={() => {
-            if (logar(username, senha) == true) {
-              navigation.navigate('Home')
-            } else {
-              Alert.alert('Atenção', 'Usuário ou senha inválidos')
-            }
-          }}
+          continuar={() => fazerLogin()}
         />
       </View>
     </View>
