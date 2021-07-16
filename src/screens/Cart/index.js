@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
-import {styles} from './styles';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Image } from 'react-native';
+import { styles } from './styles';
 import apiCarrinho from '../../services/apiCarrinho';
 import Header from '../../components/header';
 import Button from '../../components/Button';
@@ -8,21 +8,17 @@ import IconClose from 'react-native-vector-icons/Ionicons';
 import IconPlus from 'react-native-vector-icons/Entypo';
 import IconMin from 'react-native-vector-icons/Entypo';
 import theme from '../../global/theme';
+import { findClienteStorage } from '../../repository/storage'
 
-const Cart = ({navigation}) => {
+const Cart = ({ navigation }) => {
   const [produtos, setProdutos] = useState([]);
   const [pedidoAtual, setPedidoAtual] = useState([{}]);
-  const cliente = {
-    id: 3,
-    idPedido: 81,
-    // tokenAcesso:
-    //   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjI2MzUwNn0.d4zOJwkaAKXEyR-88F9WH9tsYEeEAT7nUzvGfRvL6cZiUFDK-Fl8walv6gqfxhGG3t4snkekvsNbnPRBG1xZpA',
-  };
+  const cliente = findClienteStorage();
 
   const pedido = cliente.idPedido;
 
   const obterPedido = async () => {
-    if (pedido) {
+    if (pedido != 0) {
       const resposta = await apiCarrinho.obterTodosPedidos();
       const todosPedidos = resposta.data;
       todosPedidos.forEach(item => {
@@ -66,7 +62,7 @@ const Cart = ({navigation}) => {
     obterPedido();
   }, []);
 
-  if (!pedido) {
+  if (pedido == 0) {
     return (
       <View>
         <Header
@@ -88,9 +84,9 @@ const Cart = ({navigation}) => {
         <FlatList
           keyExtractor={item => item.id}
           data={produtos}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <View style={styles.containerCard}>
-              <Image style={styles.image} source={{uri: item.imagemProduto}} />
+              <Image style={styles.image} source={{ uri: item.imagemProduto }} />
               <View style={styles.containerInfo}>
                 <Text style={styles.title}>{item.nomeProduto}</Text>
                 <Text style={styles.price}>Valor:{item.precoDoProduto}</Text>
@@ -137,15 +133,15 @@ const Cart = ({navigation}) => {
                 </View>
               </View>
               <View style={styles.containerIcon}>
-              <IconClose
-                name="close-outline"
-                size={35}
-                style={styles.iconClose}
-                onPress={() => {
-                  deletaProdutoPedido(item.id);
-                }}
-              />
-                </View>
+                <IconClose
+                  name="close-outline"
+                  size={35}
+                  style={styles.iconClose}
+                  onPress={() => {
+                    deletaProdutoPedido(item.id);
+                  }}
+                />
+              </View>
             </View>
           )}
         />

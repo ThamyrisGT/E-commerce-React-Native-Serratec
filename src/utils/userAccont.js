@@ -4,7 +4,7 @@ import Cliente from '../model/Cliente'
 
 
 const logar = async (username, senha) => {
-    
+
     const resposta = await getCliente(username, senha);
     const tokenId = resposta.data;
     console.log(tokenId);

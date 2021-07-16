@@ -66,6 +66,7 @@ const Home = ({ navigation }) => {
                   preco: item.preco,
                   descricao: item.descricao,
                   imagem: item.url,
+                  idProduto: item.id
                 })
               }
             />

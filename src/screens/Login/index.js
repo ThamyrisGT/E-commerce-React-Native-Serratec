@@ -5,7 +5,7 @@ import { styles } from './styles';
 import Header from '../../components/header';
 import Input from '../../components/input';
 import { logar } from '../../utils/userAccont';
-import { findClienteStorage } from '../../repository/storage';
+import { findClienteStorage } from '../../repository/storage'
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
