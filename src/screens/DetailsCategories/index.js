@@ -8,11 +8,14 @@ import api from '../../services/api'
 import { findCliente } from '../../services/realm';
 
 const DetailsCategories = ({ navigation, route }) => {
+
   const nome = route.params.nome;
   const preco = route.params.preco;
   const descricao = route.params.descricao;
   const imagem = route.params.imagem;
   const idProduto = route.params.idProduto;
+
+  console.log(nome + " - " + preco)
 
   const pedidoProduto = async () => {
     const cliente = await findClienteStorage();
@@ -43,12 +46,11 @@ const DetailsCategories = ({ navigation, route }) => {
               }, 'modified')
             })
             console.log('deu bom ao criar o pedido');
-            realm.close();
+
             navigation.navigate('Cart');
           } catch (error) {
             console.log('deu ruim ao criar o pedido')
             console.log(error)
-            realm.close();
           }
         })
         .catch(error => {
@@ -61,16 +63,17 @@ const DetailsCategories = ({ navigation, route }) => {
           idProduto: idProduto,
           quantidade: 1,
         };
+        console.log("dto " + dto.pedido)
+        console.log("pedido " + pedido)
+        console.log("idProduto " + idProduto)
         api.post('pedido/detalhes/', dto)
           .then(response => {
             console.log(response)
-            realm.close();
             navigation.navigate('Cart');
           })
           .catch(error => {
             console.log(error)
-            navigation.navigate('Cart');
-            realm.close();
+
           })
       }
     }
