@@ -23,17 +23,10 @@ const logar = async (username, senha) => {
                     , 'modified')
             })
             console.log('deu bom')
-
+            return true;
         } catch (error) {
             console.log('deu ruim')
             console.log(error)
-        }
-        finally {
-            realm.close();
-            if (resposta.status !== 200) {
-                return false;
-            }
-            return true;
         }
     }
 }
