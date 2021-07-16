@@ -45,6 +45,7 @@ const Home = ({ navigation }) => {
       <HeaderMain
         entrar={() => navigation.navigate('Login')}
         cadastrar={() => navigation.navigate('Register')}
+        sair={() => navigation.navigate('Home')}
       />
       <FlatList
         style={styles.container}

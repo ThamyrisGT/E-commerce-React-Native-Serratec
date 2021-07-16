@@ -23,7 +23,7 @@ const DetailsCategories = ({navigation, route}) => {
           <View style={styles.viewSuperior}>
             <Image source={{uri: imagem}} style={styles.image} />
             <View style={styles.viewSuperiorComprar}>
-              <Text style={styles.textoProduto}>{nome}</Text>
+              <Text style={styles.textoProduto}>{nome.replace('-', ` `)}</Text>
               <Text style={styles.textoPreco}>R$ {preco}</Text>
             </View>
           </View>
