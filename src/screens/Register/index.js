@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {View, Text, StatusBar, ScrollView,Modal} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  ScrollView,
+  Modal,
+  StyleSheet,
+} from 'react-native';
 import Button from '../../components/Button';
 import {styles} from './styles';
 import Header from '../../components/header';
@@ -8,9 +15,7 @@ import DatePicker from 'react-native-date-picker';
 import {cadastrar} from '../../utils/userAccont';
 
 const Cadastro = ({navigation}) => {
-
   const [modalVisible, setModalVisible] = useState(false);
-
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -24,6 +29,16 @@ const Cadastro = ({navigation}) => {
   const [bairro, setBairro] = useState('');
   const [cidade, setCidade] = useState('');
   const [complemento, setComplemento] = useState('');
+
+  const [dia, setDia] = useState(nascimento.getDate());
+  const [mes, setMes] = useState(nascimento.getMonth());
+  const [ano, setAno] = useState(nascimento.getFullYear());
+
+  useEffect(() => {
+    setDia(nascimento.getDate());
+    setMes(nascimento.getMonth());
+    setAno(nascimento.getFullYear());
+  }, [nascimento]);
 
   const usuario = {
     cpf: cpf,
@@ -92,20 +107,36 @@ const Cadastro = ({navigation}) => {
             value={telefone}
           />
 
-          {/* <InputUnderline
+          <InputUnderline
             placeholder="Data de Nascimento"
-            onChangeText={e => setNascimento(e)}
-            value={nascimento}
-          /> */}
-      
-
-          <DatePicker
-            date={nascimento}
-            onDateChange={data => setNascimento(data)}
-            mode="date"
-            androidVariant="nativeAndroid"
-            showOn= "button"
+            onClick={() => setModalVisible(true)}
+            value={`${dia}/${mes+1}/${ano}`}
+            onFocus={() => setModalVisible(true)}
           />
+
+          <Modal
+            animationType="fade" //fade
+            transparent={true}
+            visible={modalVisible}>
+            <View style={styles.modal}>
+              <View style={styles.conteudoModal}>
+                <Text>Data de Nascimento</Text>
+                <DatePicker
+                  date={nascimento}
+                  onDateChange={data => {
+                    setNascimento(data);
+                  }}
+                  mode="date"
+                  androidVariant="nativeAndroid"
+                  showOn="button"
+                />
+                <Button
+                  title="Definir"
+                  continuar={() => setModalVisible(false)}
+                />
+              </View>
+            </View>
+          </Modal>
 
           <InputUnderline
             placeholder="Cep"
