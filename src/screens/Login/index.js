@@ -1,40 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text, View, StatusBar } from 'react-native';
 import Button from '../../components/Button';
 import { styles } from './styles';
 import Header from '../../components/header';
 import Input from '../../components/input';
-import { findCliente } from '../../services/realm';
-import {getCliente} from '../../services/apiCliente';
-import Cliente from '../../model/Cliente'
+import { logar } from '../../utils/userAccont';
+import { findClienteStorage } from '../../repository/storage';
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [senha, setSenha] = useState('');
 
-
-  const logar = async () => {
-    const resposta = await getCliente(username, senha);
-    const tokenId = resposta.data;
-    console.log(tokenId);
-    if (tokenId) {
-      const realm = await findCliente();
-      try {
-        realm.write(() => {
-          realm.create('Cliente',
-            new Cliente(tokenId)
-            , 'modified')
-        })
-        console.log('deu bom')
-      } catch (error) {
-        console.log('deu ruim')
-        console.log(error)
-      }
-      finally {
-        realm.close();
-      }
-    }
-  }
+  findClienteStorage();
 
   return (
     <View style={styles.container}>
@@ -61,15 +38,13 @@ const Login = ({ navigation }) => {
         </View>
         <View style={styles.containerIntern}>
           <Text style={styles.text}>Esqueci minha senha</Text>
-          <Text>{username}</Text>
-          <Text>{senha}</Text>
         </View>
       </View>
       <View style={styles.containerInternFooter}>
         <Button
           title="Entrar"
           activeOpacity={0.7}
-          continuar={() => logar()}
+          continuar={() => logar(username, senha)}
         />
       </View>
     </View>

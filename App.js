@@ -1,14 +1,11 @@
 import React from 'react';
 import Routes from './src/routes/auth.routes';
 
-
-
 const App = () => {
+
   return (
-  <Routes/>
-  
+    <Routes />
   );
 };
-
 
 export default App;
