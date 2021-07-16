@@ -20,8 +20,9 @@ const HeaderMain = props => {
     }
   };
 
-  const removerToken =()=>{
-    
+  const removerToken = async ()=>{
+
+    // REMOVER TOKEN AQUI !!!
   }
 
   useEffect(() => {
@@ -48,13 +49,12 @@ const HeaderMain = props => {
           </View>
         ) : (
           <View style={styles.containerLogin}>
-            <Text style={styles.textLogin} onPress={props.sair}>
+            <Text style={styles.textLogin} onPress={() => removerToken()}>
               Logout
             </Text>
           </View>
         )}
       </View>
-
       <View style={styles.containerInput}>
         <Input placeholder="Pesquisar" />
       </View>
