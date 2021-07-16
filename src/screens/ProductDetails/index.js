@@ -77,19 +77,6 @@ const ProductDetails = ({ navigation, route }) => {
     }
   }
 
-  /**
-   * {
-  "idCliente": 0,
-  "produtosDoPedido": [
-    {
-      "idPedido": 0,
-      "idProduto": 0,
-      "quantidade": 0
-    }
-  ]
-}
-   */
-
   return (
     <View style={styles.container}>
       <Header
