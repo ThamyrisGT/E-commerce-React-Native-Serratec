@@ -8,4 +8,15 @@ const getCliente= async (username,senha) =>{
     });
 }
 
-export default getCliente;
+const register = async (cliente) => {
+    return new Promise((resolve, reject) =>{
+        return api.post('create', cliente)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    })
+}
+
+export {
+    getCliente,
+    register
+};
