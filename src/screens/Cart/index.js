@@ -71,8 +71,6 @@ const Cart = ({ navigation }) => {
     obterPedido(pedidoAtual.id);
   }, []);
 
-
-
   useEffect(() => {
     return navigation.addListener('focus', () => {
       findClienteStorage();
