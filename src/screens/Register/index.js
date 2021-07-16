@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StatusBar, ScrollView} from 'react-native';
+import {View, Text, StatusBar, ScrollView,Modal} from 'react-native';
 import Button from '../../components/Button';
 import {styles} from './styles';
 import Header from '../../components/header';
@@ -8,6 +8,9 @@ import DatePicker from 'react-native-date-picker';
 import {cadastrar} from '../../utils/userAccont';
 
 const Cadastro = ({navigation}) => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -89,11 +92,19 @@ const Cadastro = ({navigation}) => {
             value={telefone}
           />
 
+          {/* <InputUnderline
+            placeholder="Data de Nascimento"
+            onChangeText={e => setNascimento(e)}
+            value={nascimento}
+          /> */}
+      
+
           <DatePicker
             date={nascimento}
             onDateChange={data => setNascimento(data)}
             mode="date"
             androidVariant="nativeAndroid"
+            showOn= "button"
           />
 
           <InputUnderline

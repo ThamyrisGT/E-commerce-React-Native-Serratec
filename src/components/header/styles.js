@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
   container: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 15,
     marginBottom: 30,
@@ -14,7 +13,8 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.bold,
     fontSize: 25,
     color: theme.colors.secundary,
-    marginHorizontal: 70,
+    marginHorizontal: 42
+
   },
   text: {
     fontFamily: theme.fonts.medium,
