@@ -28,7 +28,10 @@ const Categories = ({navigation}) => {
 
   return (
     <>
-      <HeaderMain />
+      <HeaderMain 
+       entrar={() => navigation.navigate('Login')}
+       cadastrar={() => navigation.navigate('Register')}
+      />
       <View style={styles.container}>
         <Button
           title="Importados"
@@ -53,13 +56,13 @@ const Categories = ({navigation}) => {
         keyExtractor={item => item.id}
         data={productsList}
         renderItem={({item}) => (
-          <View>
+          <>
             <Card
               caminhoImagem={item.url}
               nome={item.nome}
-              preco={item.preco}
+              preco={`R$ ${item.preco}`}
               avancar={() =>
-                navigation.navigate('ProductDetails', {
+                navigation.navigate('DetailsCategories', {
                   nome: item.nome,
                   preco: item.preco,
                   descricao: item.descricao,
@@ -67,7 +70,7 @@ const Categories = ({navigation}) => {
                 })
               }
             />
-          </View>
+          </>
         )}
       />
     </>

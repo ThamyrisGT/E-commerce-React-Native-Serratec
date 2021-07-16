@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjM5MzY4MX0.8jPKVMotacNU5pg7jLLrvJz7oV3ex2ootnyeOicHf5-AKiivr2-gmNyLld_Egib4MWOalpgVBRMI7tpqRNjIGg"
+    let token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZSIsImV4cCI6MTYyNjQzNzE4M30.cK6qdMxjfFX6ucZ6r-melOCLX9-h83uuJ6ndY2pCnhHZiZgd9j5HE54WLqzgeYSHdJiAOTx3c2wx_Ou0SrWobQ"
 
     if (token) {
         config.headers.Authorization = token;
