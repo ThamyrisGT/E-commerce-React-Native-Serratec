@@ -4,8 +4,8 @@ import Button from '../../components/Button';
 import {styles} from './styles';
 import Header from '../../components/header';
 import InputUnderline from '../../components/inputUnderline';
-import {register} from '../../services/apiCliente';
 import DatePicker from 'react-native-date-picker';
+import {cadastrar} from '../../utils/userAccont';
 
 const Cadastro = ({navigation}) => {
 
@@ -40,12 +40,6 @@ const Cadastro = ({navigation}) => {
         complemento: complemento,
       },
     ],
-  };
-
-  const cadastrar = async () => {
-    const resposta = await register(usuario);
-    const cliente = resposta.data;
-    console.log(cliente);
   };
 
   return (
@@ -104,6 +98,7 @@ const Cadastro = ({navigation}) => {
             value={nascimento}
           /> */}
       
+
           <DatePicker
             date={nascimento}
             onDateChange={data => setNascimento(data)}
@@ -155,7 +150,7 @@ const Cadastro = ({navigation}) => {
             <Button
               title="Cadastrar"
               activeOpacity={0.7}
-              continuar={() => cadastrar()}
+              continuar={() => cadastrar(usuario)}
             />
             <Text style={styles.text}> Já possui cadastro? </Text>
           </View>

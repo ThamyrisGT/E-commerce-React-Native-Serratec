@@ -7,6 +7,7 @@ import { findProdutos } from '../../services/realm'
 import Produto from '../../model/Produto';
 import HeaderMain from '../../components/headerMain';
 
+
 const Home = ({ navigation }) => {
   const [productsList, setProductsList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,7 @@ const Home = ({ navigation }) => {
         })
       })
     } catch (error) {
-      console.log('deu ruim')
+      console.log('deu ruim ao salvar os produtos')
       console.log(error)
     }
     finally {
@@ -39,7 +40,9 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     carregarProdutos();
+    
   }, []);
+
 
   return (
     <>
