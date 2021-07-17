@@ -144,16 +144,6 @@ const Cadastro = ({navigation}) => {
             onChangeText={e => setTelefone(e)}
             value={telefone}
           />
-
-
-          <DatePicker
-            date={nascimento}
-            onDateChange={data => setNascimento(data)}
-            mode="date"
-            androidVariant="nativeAndroid"
-            showOn="button"
-          />
-
           <InputUnderline
             placeholder="Data de Nascimento"
             onClick={() => setModalVisible(true)}
