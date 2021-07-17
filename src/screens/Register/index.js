@@ -1,6 +1,5 @@
 
 import React, {useState, useEffect} from 'react';
-
 import {
   View,
   Text,
@@ -13,10 +12,7 @@ import {styles} from './styles';
 import Header from '../../components/header';
 import InputUnderline from '../../components/inputUnderline';
 import DatePicker from 'react-native-date-picker';
-
 import {cadastrar} from '../../utils/userAccont';
-import apiCep from '../../services/apiCep';
-
 import apiCep from '../../services/apiCep';
 
 const Cadastro = ({navigation}) => {
