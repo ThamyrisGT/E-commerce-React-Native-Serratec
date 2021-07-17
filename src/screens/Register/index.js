@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StatusBar,
-  ScrollView,
-  Modal,
-  StyleSheet,
-} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StatusBar, ScrollView, Modal} from 'react-native';
 import Button from '../../components/Button';
-import { styles } from './styles';
+import {styles} from './styles';
 import Header from '../../components/header';
 import InputUnderline from '../../components/inputUnderline';
 import DatePicker from 'react-native-date-picker';
-import { cadastrar } from '../../utils/userAccont';
+import {cadastrar} from '../../utils/userAccont';
+import apiCep from '../../services/apiCep';
 
-const Cadastro = ({ navigation }) => {
+const Cadastro = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -57,17 +51,38 @@ const Cadastro = ({ navigation }) => {
     ],
   };
 
+  const obterCep = async cep => {
+    let resposta = await apiCep
+      .get(`${cep}/json`)
+      .then(response => {
+        return response.data;
+      })
+      .catch(erro => {
+        console.log('Erro');
+      });
+    setRua(resposta.logradouro);
+    setBairro(resposta.bairro);
+    setCidade(resposta.localidade);
+  };
+
+  const buscar = () => {
+    if (cep.length == 8) {
+      obterCep(cep);
+    }
+  };
+
+  useEffect(() => {
+    buscar();
+  }, [cep]);
+
   const fazerCadastro = async () => {
     const cadastrou = await cadastrar(usuario);
     if (cadastrou) {
-      navigation.navigate('Home')
+      navigation.navigate('Home');
     } else {
-      Alert.alert(
-        'Atenção',
-        'Verifique os dados e tente novamente!'
-      )
+      Alert.alert('Atenção', 'Verifique os dados e tente novamente!');
     }
-  }
+  };
 
   return (
     <ScrollView>
@@ -157,23 +172,11 @@ const Cadastro = ({ navigation }) => {
             value={cep}
           />
 
-          <InputUnderline
-            placeholder="Rua"
-            onChangeText={e => setRua(e)}
-            value={rua}
-          />
+          <InputUnderline placeholder="Rua" value={rua} />
 
-          <InputUnderline
-            placeholder="Bairro"
-            onChangeText={e => setBairro(e)}
-            value={bairro}
-          />
+          <InputUnderline placeholder="Bairro" value={bairro} />
 
-          <InputUnderline
-            placeholder="Cidade"
-            onChangeText={e => setCidade(e)}
-            value={cidade}
-          />
+          <InputUnderline placeholder="Cidade" value={cidade} />
 
           <InputUnderline
             placeholder="Número"

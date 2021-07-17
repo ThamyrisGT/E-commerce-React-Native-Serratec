@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList,Alert } from 'react-native';
 import { styles } from './styles';
 import getProducts from '../../services/apiProdutos';
 import Card from '../../components/Card';
@@ -18,23 +18,6 @@ const Home = ({ navigation }) => {
     setLoading(false);
   };
 
-  // const salvarProdutos = async (produtos) => {
-  //   const realm = await findProdutos();
-  //   try {
-  //     realm.write(() => {
-  //       produtos.forEach(prod => {
-  //         realm.create('Produto', new Produto(prod), 'modified')
-  //       })
-  //     })
-  //   } catch (error) {
-  //     console.log('deu ruim ao salvar os produtos')
-  //     console.log(error)
-  //   }
-  //   finally {
-  //     realm.close();
-  //   }
-  // }
-
   useEffect(() => {
     carregarProdutos();
   }, []);
@@ -45,6 +28,7 @@ const Home = ({ navigation }) => {
       <HeaderMain
         entrar={() => navigation.navigate('Login')}
         cadastrar={() => navigation.navigate('Register')}
+        sair={() => Alert.alert("Logout feito com sucesso", "Volte sempre !")}
       />
       <FlatList
         style={styles.container}
