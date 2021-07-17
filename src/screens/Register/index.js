@@ -1,5 +1,5 @@
-
 import React, {useState, useEffect} from 'react';
+
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import {cadastrar} from '../../utils/userAccont';
 import apiCep from '../../services/apiCep';
 
 const Cadastro = ({navigation}) => {
+
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -59,7 +60,17 @@ const Cadastro = ({navigation}) => {
       },
     ],
   };
-
+  const fazerCadastro = async () => {
+    const cadastrou = await cadastrar(usuario);
+    if (cadastrou) {
+      navigation.navigate('Home')
+    } else {
+      Alert.alert(
+        'Atenção',
+        'Verifique os dados e tente novamente!'
+      )
+    }
+  }
   const obterCep = async cep => {
     let resposta = await apiCep
       .get(`${cep}/json`)
@@ -84,14 +95,6 @@ const Cadastro = ({navigation}) => {
     buscar();
   }, [cep]);
 
-  const fazerCadastro = async () => {
-    const cadastrou = await cadastrar(usuario);
-    if (cadastrou) {
-      navigation.navigate('Home');
-    } else {
-      Alert.alert('Atenção', 'Verifique os dados e tente novamente!');
-    }
-  };
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -149,7 +152,7 @@ const Cadastro = ({navigation}) => {
             mode="date"
             androidVariant="nativeAndroid"
             showOn="button"
-            />
+          />
 
           <InputUnderline
             placeholder="Data de Nascimento"
