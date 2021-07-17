@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontFamily: theme.fonts.bold,
-    fontSize: 30,
+    fontSize: 22,
     color: theme.colors.primary,
     marginBottom:15,
   },

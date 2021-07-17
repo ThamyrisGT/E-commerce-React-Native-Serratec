@@ -18,7 +18,10 @@ const HeaderMain = props => {
             Login |{' '}
           </Text>
           <Text style={styles.textLogin} onPress={props.cadastrar}>
-            Cadastro
+            Cadastro{' '}
+          </Text>
+          <Text style={styles.textLogin} onPress={props.sair}>
+            | Logout
           </Text>
         </View>
       </View>
