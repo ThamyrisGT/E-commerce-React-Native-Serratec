@@ -1,5 +1,13 @@
+
 import React, {useState, useEffect} from 'react';
-import {View, Text, StatusBar, ScrollView, Modal} from 'react-native';
+
+import {
+  View,
+  Text,
+  StatusBar,
+  ScrollView,
+  Modal
+} from 'react-native';
 import Button from '../../components/Button';
 import {styles} from './styles';
 import Header from '../../components/header';
@@ -7,11 +15,14 @@ import InputUnderline from '../../components/inputUnderline';
 import DatePicker from 'react-native-date-picker';
 
 import {cadastrar} from '../../utils/userAccont';
+import apiCep from '../../services/apiCep';
 
 import apiCep from '../../services/apiCep';
 
 const Cadastro = ({navigation}) => {
+
   const [modalVisible, setModalVisible] = useState(false);
+
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -85,7 +96,6 @@ const Cadastro = ({navigation}) => {
       Alert.alert('Atenção', 'Verifique os dados e tente novamente!');
     }
   };
-
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -136,11 +146,21 @@ const Cadastro = ({navigation}) => {
             value={telefone}
           />
 
+
+          <DatePicker
+            date={nascimento}
+            onDateChange={data => setNascimento(data)}
+            mode="date"
+            androidVariant="nativeAndroid"
+            showOn="button"
+            />
+
           <InputUnderline
             placeholder="Data de Nascimento"
             onClick={() => setModalVisible(true)}
             value={`${dia}/${mes + 1}/${ano}`}
             onFocus={() => setModalVisible(true)}
+
           />
 
           <Modal
@@ -174,12 +194,20 @@ const Cadastro = ({navigation}) => {
             value={cep}
           />
 
+          <InputUnderline
+            placeholder="Rua"
+            value={rua}
+          />
 
-          <InputUnderline placeholder="Rua" value={rua} />
+          <InputUnderline
+            placeholder="Bairro"
+            value={bairro}
+          />
 
-          <InputUnderline placeholder="Bairro" value={bairro} />
-
-          <InputUnderline placeholder="Cidade" value={cidade} />
+          <InputUnderline
+            placeholder="Cidade"
+            value={cidade}
+          />
 
           <InputUnderline
             placeholder="Número"

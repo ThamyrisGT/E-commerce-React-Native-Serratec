@@ -5,7 +5,6 @@ import Produto from '../schemas/Produto';
 function findCliente() {
     return Realm.open({ schema: [Cliente] })
 }
-
 function findProdutos() {
     return Realm.open({ schema: [Produto] })
 }
@@ -13,4 +12,5 @@ function findProdutos() {
 export {
     findCliente,
     findProdutos
+    
 }

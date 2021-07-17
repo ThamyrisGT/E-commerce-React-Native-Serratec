@@ -29,6 +29,8 @@ const Home = ({ navigation }) => {
         entrar={() => navigation.navigate('Login')}
         cadastrar={() => navigation.navigate('Register')}
         sair={() => Alert.alert("Logout feito com sucesso", "Volte sempre !")}
+
+
       />
       <FlatList
         style={styles.container}

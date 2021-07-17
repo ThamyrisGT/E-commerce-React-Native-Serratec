@@ -67,6 +67,8 @@ const Cart = ({navigation}) => {
       });
   };
 
+  // setInterval(() => findClienteStorage(), 5000)
+
   useEffect(() => {
     obterPedido(pedidoAtual.id);
   }, []);
@@ -76,6 +78,7 @@ const Cart = ({navigation}) => {
       findClienteStorage();
     });
   }, [navigation]);
+
 
   if (pedidoAtual.id == 0) {
     return (
@@ -103,7 +106,7 @@ const Cart = ({navigation}) => {
             <View style={styles.containerCard}>
               <Image style={styles.image} source={{uri: item.imagemProduto}} />
               <View style={styles.containerInfo}>
-                <Text style={styles.title}>{item.nomeProduto}</Text>
+                <Text style={styles.title}>{item.nomeProduto.replace('-', ` `)}</Text>
                 <Text style={styles.price}>Valor:{item.precoDoProduto}</Text>
                 <View style={styles.containerAjuste}>
                   <IconPlus
